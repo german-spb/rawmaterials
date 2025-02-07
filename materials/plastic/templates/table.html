@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <table class="u-full-width">
+            <thead>
+            <tr>
+                <th>№ id</th>
+                <th>Name</th>
+                <th>Age</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for man  in mans  %}
+                <tr>
+                    <td>{{ man.id }}</td>
+                    <td>{{ man.name }}</td>
+                    <td>{{ man.age }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+</div>
+</body>
+</html>
