@@ -5,11 +5,17 @@
     <title>METANIT.COM</title>
 </head>
 <body>
-    <h2>User form</h2>
-    <form method="post" action="postuser/">
+    <h2>Запись декоров пластика в БД</h2>
+    <form method="post" action="postplastic/">
         {% csrf_token %}
-        <p>Name:<br> <input name="name" /></p>
-        <p>Age:<br> <input name="age" type="number" /></p>
+        <p>Код СБК:<br> <input name="code_sbk" /></p>
+        <p>Название СБК:<br> <input name="name_sbk" type="text" /></p>
+        <p>Код поставщика:<br> <input name="code_contractor" /></p>
+        <p>Название поставщика:<br> <input name="name_contractor" type="text" /></p>
+<!--        <p>Остаток листов 3050мм:<br> <input name="quantity_3050" /></p>-->
+<!--        <p>Остаток листов 2440мм:<br> <input name="quantity_2440" /></p>-->
+<!--        <p>Остаток листов 4200мм:<br> <input name="quantity_4200" /></p>-->
+<!--        <p>Остаток в рулонах::<br> <input name="quantity_rol" /></p>-->
         <input type="submit" value="Send" />
     </form>
 </body>
