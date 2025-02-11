@@ -2,21 +2,16 @@
 <html>
 <head>
     <meta charset="utf-8" />
-    <title>METANIT.COM</title>
+    <title>ДБСП</title>
 </head>
 <body>
-    <h2>Запись декоров пластика в БД</h2>
-    <form method="post" action="postplastic/">
+{% load static %}
+<img src="{% static 'img/souzz.png' %}" alt="logo" align='top'>
+    <h2>Запись декоров в базу данных</h2>
+    <form method="post" action="create/">
         {% csrf_token %}
-        <p>Код СБК:<br> <input name="code_sbk" /></p>
-        <p>Название СБК:<br> <input name="name_sbk" type="text" /></p>
-        <p>Код поставщика:<br> <input name="code_contractor" /></p>
-        <p>Название поставщика:<br> <input name="name_contractor" type="text" /></p>
-<!--        <p>Остаток листов 3050мм:<br> <input name="quantity_3050" /></p>-->
-<!--        <p>Остаток листов 2440мм:<br> <input name="quantity_2440" /></p>-->
-<!--        <p>Остаток листов 4200мм:<br> <input name="quantity_4200" /></p>-->
-<!--        <p>Остаток в рулонах::<br> <input name="quantity_rol" /></p>-->
-        <input type="submit" value="Send" />
+        {{ form.as_p }}
+        <button type="submit">Сохранить</button>
     </form>
 </body>
 </html>

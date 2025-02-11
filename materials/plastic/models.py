@@ -5,7 +5,8 @@ class Plastics(models.Model):
     name_sbk = models.CharField(max_length=50)
     code_contractor = models.CharField(max_length=20)
     name_contractor = models.CharField(max_length=50)
-    price = models.IntegerField()
+    price = models.DecimalField(max_digits=6, decimal_places=2)
+    note = models.TextField()
 
     def __str__(self):
         return self.code_sbk

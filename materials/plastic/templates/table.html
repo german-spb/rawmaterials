@@ -10,17 +10,23 @@
         <table class="u-full-width">
             <thead>
             <tr>
-                <th>№ id</th>
-                <th>Name</th>
-                <th>Age</th>
+                <th>Код СБК</th>
+                <th>Название СБК</th>
+                <th>Код поставщика</th>
+                <th>Название поставщика</th>
+                <th>Цена</th>
+                <th>Примечание</th>
             </tr>
             </thead>
             <tbody>
-            {% for man  in mans  %}
+            {% for plast  in plastics  %}
                 <tr>
-                    <td>{{ man.id }}</td>
-                    <td>{{ man.name }}</td>
-                    <td>{{ man.age }}</td>
+                    <td>{{ plast.code_sbk }}</td>
+                    <td>{{ plast.name_sbk }}</td>
+                    <td>{{ plast.code_contractor }}</td>
+                    <td>{{ plast.name_contractor }}</td>
+                    <td>{{ plast.price }}</td>
+                    <td>{{ plast.note }}</td>
                 </tr>
             {% endfor %}
             </tbody>
