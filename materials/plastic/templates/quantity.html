@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>ДБСП</title>
+</head>
+<body>
+{% load static %}
+<img src="{% static 'img/souzz.png' %}" alt="logo" align='top'>
+    <h2>Запись количества в базу данных</h2>
+    <form method="post" action="stock/">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Записать</button>
+    </form>
+</body>
+</html>
