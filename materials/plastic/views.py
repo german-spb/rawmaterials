@@ -41,17 +41,16 @@ def stock(requests):
 
 def input_stock(request):
     # получаем из данных запроса POST отправленные через форму данные
-    for e in Plastics.objects.all():
-        print(e.code_sbk)
-    # plastic = Plastics.objects.get(code_sbk='id_plastic')
-    # print(plastic)
+    cod = request.POST.get('plastic')
+    plastics = Plastics.objects.filter(id = cod)
     quantity_3050 = request.POST.get("quantity_3050", 0)
     quantity_2440 = request.POST.get("quantity_2440", 0)
     quantity_4200 = request.POST.get("quantity_4200", 0)
     quantity_rol = request.POST.get("quantity_rol", 0)
-    quan = Stocks(plastic=plastic, quantity_3050=quantity_3050, quantity_2440=quantity_2440, quantity_4200=quantity_4200, quantity_rol=quantity_rol)
-    quan.save()
-    quan.instance = None
+    for plastic in plastics:
+        quan = Stocks(plastic=plastic, quantity_3050=quantity_3050, quantity_2440=quantity_2440, quantity_4200=quantity_4200, quantity_rol=quantity_rol)
+        quan.save()
+        quan.instance = None
     return HttpResponse('Записано')
 
 # -------------- Поиск ----------------------
@@ -61,6 +60,7 @@ def search(request):
 
 def search_plastic(request):
     code_sbk = request.GET.get('code_sbk', 'Запись не найдена')
-    object_stock = Stocks.objects.all()
+    code = Plastics.objects.get(code_sbk = code_sbk)
+    object_stock = Stocks.objects.filter(plastic=code)
     stocks = [f'{c.plastic}: {c.quantity_3050}  {c.quantity_2440} {c.quantity_4200} {c.quantity_rol}' for c in object_stock]
     return HttpResponse('<br>'.join(stocks))

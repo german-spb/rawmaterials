@@ -12,7 +12,7 @@ class Plastics(models.Model):
         return self.code_sbk
 
 class Stocks(models.Model):
-    plastic = models.ForeignKey(Plastics, on_delete=models.CASCADE)
+    plastic = models.ForeignKey(Plastics, on_delete=models.CASCADE, related_name='plastics')
     quantity_3050 = models.IntegerField()
     quantity_2440 = models.IntegerField()
     quantity_4200 = models.IntegerField()
