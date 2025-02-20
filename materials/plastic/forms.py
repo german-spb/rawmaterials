@@ -25,3 +25,6 @@ class StockForm(forms.ModelForm):
             'quantity_4200': 'Листы 4200, м2:',
             'quantity_rol': 'Рулоны, м2:',
         }
+
+class UploadFileForm(forms.Form):
+    file = forms.FileField()

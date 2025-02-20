@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <title>Поиск</title>
+</head>
+<body>
+{% load static %}
+<img src="{% static 'img/souz2.png' %}" alt="logo" align='top'>
+    <h2>Поиск ДБСП</h2>
+    <form method="get" action="plastic/">
+        {% csrf_token %}
+        <p>Код СБК:<br> <input name="code_sbk" /></p>
+        <input type="submit" value="Найти" />
+    </form>
+</body>
+</html>

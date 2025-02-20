@@ -1,17 +1,70 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta charset="utf-8" />
-    <title>Поиск</title>
+    <meta charset="UTF-8">
+    <title>Количество на складе</title>
+  <style type="text/css">
+    body {
+<!--    display: flex;-->
+    align-items: left;
+    justify-content: left;
+    min-height: 100vh;
+    padding: 50px;
+    background-color: #18191C;
+    color: #e6dfdf;
+    font-family: "Roboto", sans-serif;
+    }
+
+    table {
+    width: 1100px;
+    border-top: 7px solid rgb(43, 129, 17);
+    border-collapse: collapse;
+    text-align: center;
+    margin-bottom: 20px;
+    margin-top: 20px;
+    border: 1px solid #dddddd;
+    }
+
+    td {
+    text-align: left;
+    padding: 10px;
+    border: 3px solid rgb(43, 129, 17);
+    }
+
+    th {
+    text-align: center;
+    padding: 10px;
+    border: 3px solid rgb(43, 129, 17);
+    }
+    </style>
 </head>
 <body>
 {% load static %}
-<img src="{% static 'img/souzz.png' %}" alt="logo" align='top'>
-    <h2>Поиск ДБСП</h2>
-    <form method="get" action="plastic/">
-        {% csrf_token %}
-        <p>Код СБК:<br> <input name="code_sbk" /></p>
-        <input type="submit" value="Найти" />
-    </form>
+<img src="{% static 'img/souz2.png' %}" alt="logo" align='top'>
+<h1> Количество на складе</h1>
+<table class="u-full-width" >
+            <thead>
+            <tr>
+                <th >Код СБК</th>
+                <th>Листы 3050, м2</th>
+                <th>Листы 2440, м2</th>
+                <th>Листы 4200, м2</th>
+                <th>Рулоны, м2</th>
+                <th>Всего листов, м2</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for stock  in stocks  %}
+                <tr>
+                    <td>{{ stock.plastic }}</td>
+                    <td>{{ stock.quantity_3050 }}</td>
+                    <td>{{ stock.quantity_2440 }}</td>
+                    <td>{{ stock.quantity_4200 }}</td>
+                    <td>{{ stock.quantity_rol }}</td>
+                    <td>{{ stock.total }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
 </body>
 </html>

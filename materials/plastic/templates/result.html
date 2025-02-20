@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Перечень ДБСП</title>
+    <title>Reslat</title>
     <style type="text/css">
     body {
 <!--    display: flex;-->
@@ -39,30 +39,26 @@
     </style>
 </head>
 <body>
-{% load static %}
-<img src="{% static 'img/souz2.png' %}" alt="logo" align='top'>
+<!--{% load static %}-->
+<!--<img src="{% static 'img/souz2.png' %}" alt="logo" align='top'>-->
 <div class="container">
     <div class="row">
         <table class="u-full-width" >
             <thead>
             <tr>
-                <th >Код СБК</th>
-                <th>Название СБК</th>
-                <th>Код поставщика</th>
-                <th>Название поставщика</th>
-                <th>Цена, м2</th>
-                <th>Примечание</th>
+                <th >Пластик</th>
+                <th>Листы, м2</th>
+                <th>Рулоны, м2</th>
+                <th>Всего, м2</th>
             </tr>
             </thead>
             <tbody>
             {% for plast  in plastics  %}
                 <tr>
-                    <td>{{ plast.code_sbk }}</td>
-                    <td>{{ plast.name_sbk }}</td>
-                    <td>{{ plast.code_contractor }}</td>
-                    <td>{{ plast.name_contractor }}</td>
-                    <td>{{ plast.price }}</td>
-                    <td>{{ plast.note }}</td>
+                    <td>{{ plast.plastic }}</td>
+                    <td>{{ plast.quantity_sheet }}</td>
+                    <td>{{ plast.quantity_rol }}</td>
+                    <td>{{ plast.total }}</td>
                 </tr>
             {% endfor %}
             </tbody>

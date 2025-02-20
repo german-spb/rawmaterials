@@ -1,6 +1,0 @@
-Django
-psycopg2-binary
-djangorestframework
-django-filter
-django-cors-headers
-postgres

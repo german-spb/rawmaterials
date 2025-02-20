@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Загрузка</title>
+</head>
+<body>
+{% load static %}
+<img src="{% static 'img/souz2.png' %}" alt="logo" align='top'>
+
+<form method="POST" enctype="multipart/form-data">
+    Загрузка файла
+<!--    {% if messages %}-->
+
+<!--            {% for message messages %}-->
+<!--                {{ message }}-->
+<!--            {% endfor %}-->
+
+<!--    {% endif %}-->
+
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Загрузка</button>
+</form>
+</body>
+</html>
