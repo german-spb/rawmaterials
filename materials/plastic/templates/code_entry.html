@@ -4,10 +4,11 @@
     <meta charset="UTF-8">
     <title>Запись кода</title>
     <link rel="icon" type="image/x-icon" href="/static/img/favicon.ico">
+    {% include 'navbar.html' %}
 </head>
 <body>
     {% load static %}
-    <img src="{% static 'img/souzz.png' %}" alt="logo" align='top'>
+<!--    <img src="{% static 'img/souzz.png' %}" alt="logo" align='top'>-->
     <h2>Запись декоров в базу данных</h2>
     <form method="post" action="create/">
         {% csrf_token %}

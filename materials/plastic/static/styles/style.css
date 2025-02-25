@@ -111,22 +111,23 @@ body {
 
     table {
     width: 1100px;
-    border-top: 7px solid rgb(43, 129, 17);
+    border-top: 7px solid rgb(160, 236, 145);
     border-collapse: collapse;
     text-align: center;
     margin-bottom: 20px;
     margin-top: 20px;
     border: 1px solid #dddddd;
+    margin: 0 auto;
     }
 
     td {
     text-align: left;
     padding: 10px;
-    border: 3px solid rgb(43, 129, 17);
+    border: 3px solid rgb(160, 236, 145);
     }
 
     th {
     text-align: center;
     padding: 10px;
-    border: 3px solid rgb(43, 129, 17);
+    border: 3px solid rgb(160, 236, 145);
     }
