@@ -3,15 +3,13 @@
 <head>
     <meta charset="utf-8" />
     <title>ДБСП</title>
+    <link rel="icon" type="image/x-icon" href="/static/img/favicon.ico">
+    <link rel="stylesheet" href="{% static 'styles/style.css' %}">
 </head>
 <body>
-{% load static %}
-<img src="{% static 'img/souz2.png' %}" alt="logo" align='top'>
-    <h2>Запись декоров в базу данных</h2>
-    <form method="post" action="create/">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Сохранить</button>
-    </form>
+
+
+
+
 </body>
 </html>

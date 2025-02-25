@@ -30,7 +30,7 @@ SECRET_KEY = os.getenv('SECRET')
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = os.getenv('BEBUG')
 
-ALLOWED_HOSTS = ['*']
+ALLOWED_HOSTS = ['http://192.168.2.116/', '127.0.0.1']
 
 
 # Application definition
@@ -130,6 +130,9 @@ STATIC_URL = 'static/'
 # STATICFILES_DIRS = [
 #    os.path.join(BASE_DIR, "static"),
 # ]
+STATICFILES_DIRS = [
+    BASE_DIR / 'static'
+]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field

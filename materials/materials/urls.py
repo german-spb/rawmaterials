@@ -20,7 +20,8 @@ from plastic import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.index),
+    path('', views.home),
+    path('code_entry', views.code_entry),
     path('create/', views.create_plastic),
     path('list_code/', views.list_plastic ),
     path('list_result/', views.list_result ),
@@ -35,7 +36,7 @@ urlpatterns = [
     path('delete_stock/', views.delete_stock),
     path('upload/', views.upload_file, name='upload_file'),
     path('upload_code/', views.upload_code, name='upload_code'),
-    path('upload_result', views.upload_result, name='upload_file'),
+    path('upload_result/', views.upload_result, name='upload_file'),
     path('excel/', views.to_excel),
 
 ]

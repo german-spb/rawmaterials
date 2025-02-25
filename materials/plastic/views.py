@@ -6,9 +6,14 @@ from .models import Plastics, Stocks, Result
 import pandas as pd
 
 
-def index(requests):
+def home(request):
+    return render(request, "navbar.html")
+
+
+
+def code_entry(requests):
     form = PlasticForm()
-    return render(requests, 'index.html', {'form': form})
+    return render(requests, 'code_entry.html', {'form': form})
 
 def create_plastic(request):
     # получаем из данных запроса POST отправленные через форму данные
@@ -116,8 +121,8 @@ def delete(request):
     code_sbk = request.GET.get('code_sbk', 'Запись не найдена')
     code = Plastics.objects.get(code_sbk=code_sbk)
     Stocks.objects.filter(plastic=code).delete()
-    # Plastics.objects.get(code_sbk=code_sbk).delete()
-    return HttpResponse('Запись удалена!')
+    Plastics.objects.get(code_sbk=code_sbk).delete()
+    return HttpR0esponse('Запись удалена!')
 
 def delete_stock(request):
     Stocks.objects.all().delete()
@@ -136,10 +141,10 @@ def upload_file(request):
                     created = Stocks.objects.update_or_create(
                         # code_sbk = row['plastic'],
                         plastic= Plastics.objects.get(code_sbk= row['plastic']),
-                        quantity_3050=row['qantity_3050'],
-                        quantity_2440=row['qantity_2440'],
-                        quantity_4200=row['qantity_4200'],
-                        quantity_rol=row['qantity_rol'],
+                        quantity_3050=row['quantity_3050'],
+                        quantity_2440=row['quantity_2440'],
+                        quantity_4200=row['quantity_4200'],
+                        quantity_rol=row['quantity_rol'],
                     )
                     # messages.success(request, f'Successfully imported files')
                 except Plastics.DoesNotExist:
