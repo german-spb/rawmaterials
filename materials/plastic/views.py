@@ -76,6 +76,14 @@ def search(request):
 
 def search_plastic(request):
     code_sbk = request.GET.get('code_sbk', 'Запись не найдена')
+    plastics_object = Plastics.objects.filter(code_sbk=code_sbk)
+    plastics = [{
+        'code_sbk': c.code_sbk,
+        'name_sbk': c.name_sbk,
+        'code_contractor': c.code_contractor,
+        'name_contractor': c.name_contractor,
+        'price': c.price,
+        'note': c.note} for c in plastics_object]
     try:
         code = Plastics.objects.get(code_sbk = code_sbk)
         stocks_object = Stocks.objects.filter(plastic=code).order_by('-id')[:1]
@@ -87,7 +95,8 @@ def search_plastic(request):
             'quantity_rol': c.quantity_rol,
             'total': c.quantity_3050 + c.quantity_2440 + c.quantity_4200} for c in stocks_object]
         context = {
-            'stocks': stocks
+            'stocks': stocks,
+            'plastics': plastics
         }
         return render(request, 'search.html', context)
     except Plastics.DoesNotExist:

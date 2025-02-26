@@ -21,6 +21,7 @@ navbar {
       padding: 20px 0;
       display: block;
       width: 100%;
+      font-weight: bold;
       background-color: rgb(160, 236, 145);
     }
 

@@ -10,7 +10,7 @@
 {% include 'navbar.html' %}
 <!--<img src="{% static 'img/souzz.png' %}" alt="logo" align='top'>-->
 <h1> Количество на складе</h1>
-<table class="u-full-width" >
+        <table class="u-full-width" >
             <thead>
             <tr>
                 <th >Код СБК</th>
@@ -30,6 +30,30 @@
                     <td>{{ stock.quantity_4200 }}</td>
                     <td>{{ stock.quantity_rol }}</td>
                     <td>{{ stock.total }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+        <table class="u-full-width" >
+            <thead>
+            <tr>
+                <th >Код СБК</th>
+                <th>Название СБК</th>
+                <th>Код поставщика</th>
+                <th>Название поставщика</th>
+                <th>Цена, м2</th>
+                <th>Примечание</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for plast  in plastics  %}
+                <tr>
+                    <td>{{ plast.code_sbk }}</td>
+                    <td>{{ plast.name_sbk }}</td>
+                    <td>{{ plast.code_contractor }}</td>
+                    <td>{{ plast.name_contractor }}</td>
+                    <td>{{ plast.price }}</td>
+                    <td>{{ plast.note }}</td>
                 </tr>
             {% endfor %}
             </tbody>
