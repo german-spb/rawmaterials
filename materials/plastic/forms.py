@@ -1,4 +1,5 @@
 from django import forms
+from django.forms import inlineformset_factory
 from .models import Plastics, Stocks
 
 class PlasticForm(forms.ModelForm):
@@ -28,3 +29,19 @@ class StockForm(forms.ModelForm):
 
 class UploadFileForm(forms.Form):
     file = forms.FileField()
+
+
+class PlasticUpdateForm(forms.ModelForm):
+    name_sbk = forms.CharField(label="Название СБК", required=False)
+    code_contractor = forms.CharField(label="Код поставщика", required=False)
+    name_contractor = forms.CharField(label="Название поставщика", required=False)
+    price = forms.DecimalField(label="Цена", required=False)
+    note = forms.CharField(widget=forms.Textarea, required=False)
+
+    class Meta:
+        model = Stocks
+        fields = ['plastic']
+        labels = {
+            'plastic': 'Пластик:',
+        }
+

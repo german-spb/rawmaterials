@@ -9,31 +9,7 @@
 {% load static %}
 {% include 'navbar.html' %}
 <!--<img src="{% static 'img/souzz.png' %}" alt="logo" align='top'>-->
-<h1> Количество на складе</h1>
-        <table class="u-full-width" >
-            <thead>
-            <tr>
-                <th >Код СБК</th>
-                <th>Листы 3050, м2</th>
-                <th>Листы 2440, м2</th>
-                <th>Листы 4200, м2</th>
-                <th>Рулоны, м2</th>
-                <th>Всего листов, м2</th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for stock  in stocks  %}
-                <tr>
-                    <td>{{ stock.plastic }}</td>
-                    <td>{{ stock.quantity_3050 }}</td>
-                    <td>{{ stock.quantity_2440 }}</td>
-                    <td>{{ stock.quantity_4200 }}</td>
-                    <td>{{ stock.quantity_rol }}</td>
-                    <td>{{ stock.total }}</td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
+<h2>Информация по коду</h2>
         <table class="u-full-width" >
             <thead>
             <tr>
@@ -58,5 +34,33 @@
             {% endfor %}
             </tbody>
         </table>
+       <hr>
+
+<h2> Количество на складе</h2>
+        <table class="u-full-width" >
+            <thead>
+            <tr>
+                <th >Код СБК</th>
+                <th>Листы 3050, м2</th>
+                <th>Листы 2440, м2</th>
+                <th>Листы 4200, м2</th>
+                <th>Рулоны, м2</th>
+                <th>Всего листов, м2</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for stock  in stocks  %}
+                <tr>
+                    <td>{{ stock.plastic }}</td>
+                    <td>{{ stock.quantity_3050 }}</td>
+                    <td>{{ stock.quantity_2440 }}</td>
+                    <td>{{ stock.quantity_4200 }}</td>
+                    <td>{{ stock.quantity_rol }}</td>
+                    <td>{{ stock.total }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
 </body>
 </html>

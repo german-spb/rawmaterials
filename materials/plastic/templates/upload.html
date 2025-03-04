@@ -7,17 +7,10 @@
 <body>
 {% load static %}
 <img src="{% static 'img/souzz.png' %}" alt="logo" align='top'>
+<hr>
 
 <form method="POST" enctype="multipart/form-data">
-    Загрузка файла
-<!--    {% if messages %}-->
-
-<!--            {% for message in messages %}-->
-<!--                {{ message }}-->
-<!--            {% endfor %}-->
-
-<!--    {% endif %}-->
-
+    <h2 style="font-style: italic; color: red">Загрузка файла</h2>
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">Загрузка</button>

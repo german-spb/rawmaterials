@@ -1,8 +1,9 @@
 navbar {
       width: 100%;
       margin:0px 0;
+
     }
-        navbar ul{
+    navbar ul{
       width: 100%;
       list-style: none;
       margin: 0;
@@ -11,12 +12,17 @@ navbar {
     }
 
     navbar ul li{
-      width: 33%;
+      width: 20%;
       float: left;
+      border: solid;
+      border-radius: 10px;
+      box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
     }
-        navbar ul li a{
+
+
+    navbar ul li a{
       text-decoration: none;
-      color: rgb(38, 22, 117);
+      color: rgb(121 27 82);
       text-align: center;
       padding: 20px 0;
       display: block;
@@ -28,6 +34,8 @@ navbar {
     navbar ul li a:hover {
       background-color: rgb(11, 221, 29);
     }
+
+
 
   .home{
     margin-right: 5%;
@@ -94,17 +102,20 @@ navbar {
 
 img {
     display: block;
-    margin-left: auto;
+    margin-left: 0;
     margin-right: auto;
-    width: 60%;
-    opacity: 0.8}
+    width: 20%;
+    opacity: 0.8
+    padding: 0, 0, 5px;
+    border-radius: 5px;
+    }
 
 body {
 <!--    display: flex;-->
     align-items: left;
     justify-content: left;
     min-height: 100vh;
-    padding: 50px;
+    padding: 5px, 50px;
     background-color: #717a7a;
     color: #e6dfdf;
     font-family: "Roboto", sans-serif;

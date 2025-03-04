@@ -15,7 +15,7 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from plastic import views
 
 urlpatterns = [
@@ -38,5 +38,8 @@ urlpatterns = [
     path('upload_code/', views.upload_code, name='upload_code'),
     path('upload_result/', views.upload_result, name='upload_file'),
     path('excel/', views.to_excel),
+    path('update/', views.input_update_code),
+    path('update/update_fields/', views.input_update_code_fields),
+    path('download/<str:filename>/', views.download_file, name='download_file'),
 
 ]

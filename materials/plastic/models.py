@@ -1,4 +1,5 @@
 from django.db import models
+from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin, User
 
 class Plastics(models.Model):
     code_sbk = models.CharField(max_length=20, unique=True)
@@ -24,7 +25,6 @@ class Result(models.Model):
     quantity_sheet = models.IntegerField()
     quantity_rol = models.IntegerField()
     total = models.IntegerField()
-
 
 
 

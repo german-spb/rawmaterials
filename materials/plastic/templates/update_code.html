@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% load static %}
+{% include 'navbar.html' %}
+<link rel="stylesheet" href="{% static 'styles/style.css' %}">
+    <h2>Обновление кода</h2>
+    <form method="post" action="update_fields/">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Обновить</button>
+    </form>
+</body>
+</html>
