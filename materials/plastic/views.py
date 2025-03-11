@@ -106,7 +106,7 @@ def search(request):
 
 def search_plastic(request):
     code_sbk = request.GET.get('code_sbk', 'Запись не найдена')
-    plastics_object = Plastics.objects.filter(code_sbk__icontains=code_sbk)
+    plastics_object = Plastics.objects.filter(code_sbk__iexact = code_sbk)
     plastics = [{
         'code_sbk': c.code_sbk,
         'name_sbk': c.name_sbk,
@@ -115,7 +115,7 @@ def search_plastic(request):
         'price': c.price,
         'note': c.note} for c in plastics_object]
     try:
-        code = Plastics.objects.get(code_sbk__icontains = code_sbk)
+        code = Plastics.objects.get(code_sbk__iexact  = code_sbk)
         stocks_object = Stocks.objects.filter(plastic=code).order_by('-id')[:1]
         stocks = [{
             'plastic': c.plastic,
