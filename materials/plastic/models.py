@@ -18,6 +18,7 @@ class Stocks(models.Model):
     quantity_2440 = models.IntegerField()
     quantity_4200 = models.IntegerField()
     quantity_rol = models.IntegerField()
+    created_at = models.DateTimeField(auto_now_add=True)
 
 
 class Result(models.Model):

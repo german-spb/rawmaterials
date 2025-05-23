@@ -51,10 +51,9 @@ def list_quantity(request):
         'quantity_4200': c.quantity_4200,
         'quantity_rol': c.quantity_rol,
         'total': c.quantity_3050 + c.quantity_2440 + c.quantity_4200} for c in stocks_object]
-    context = {
-        'stocks': stocks
-    }
-    return render(request, 'search.html', context)
+    dt = stocks_object.values('created_at').last()['created_at'].strftime("%d-%m-%Y %H:%M")
+
+    return render(request, 'search.html', {'stocks': stocks, 'dt': dt})
 
 
 # -------------------- Запись количества ----------------
@@ -160,7 +159,7 @@ def upload_file(request):
             for _, row in df.iterrows():
                 try:
                     created = Stocks.objects.update_or_create(
-                        # code_sbk = row['plastic'],
+
                         plastic= Plastics.objects.get(code_sbk= row['plastic']),
                         quantity_3050=row['quantity_3050'],
                         quantity_2440=row['quantity_2440'],
