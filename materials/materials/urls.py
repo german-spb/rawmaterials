@@ -20,7 +20,7 @@ from plastic import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', views.home),
+    path('', views.home, name='home'),
     path('code_entry', views.code_entry),
     path('create/', views.create_plastic),
     path('list_code/', views.list_plastic ),

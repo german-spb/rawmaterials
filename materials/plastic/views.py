@@ -82,19 +82,36 @@ def input_update_code(request):
     return render(request, 'update_code.html', {'form': form})
 
 def input_update_code_fields(request):
-    code = request.POST.get('plastic')
-    cur_objects = Plastics.objects.get(id=code)
-    cur_name = cur_objects.name_sbk
-    cur_code = cur_objects.code_contractor
-    cur_name_contractor = cur_objects.name_contractor
-    cur_price = cur_objects.price
-    cur_note = cur_objects.note
-    name_sbk = request.POST.get("name_sbk", cur_name)
-    code_contractor = request.POST.get("code_contractor", cur_code)
-    name_contractor = request.POST.get("name_contractor", cur_name_contractor)
-    price = request.POST.get("price", cur_price)
-    note = request.POST.get("note", cur_note)
-    Plastics.objects.filter(id=code).update(name_sbk=name_sbk, code_contractor=code_contractor, name_contractor=name_contractor, price=price, note=note)
+    code = request.GET.get('code_sbk')
+    cur_objects = Plastics.objects.filter(code_sbk=code)
+    plastics = [{
+        'code_sbk': c.code_sbk,
+        'name_sbk': c.name_sbk,
+        'code_contractor': c.code_contractor,
+        'name_contractor': c.name_contractor,
+        'price': c.price,
+        'note': c.note} for c in cur_objects]
+    cur_name_sbk  = plastics[0]['name_sbk']
+    cur_code = plastics[0]['code_contractor']
+    cur_name_contractor = plastics[0]['name_contractor']
+    cur_price = plastics[0]['price']
+    cur_note = plastics[0]['note']
+    if request.GET.get("name_sbk"):
+        name_sbk = request.GET.get("name_sbk")
+    else: name_sbk = cur_name_sbk
+    if request.GET.get("code_contractor"):
+        code_contractor = request.GET.get("code_contractor")
+    else: code_contractor = cur_code
+    if request.GET.get("name_contractor"):
+        name_contractor = request.GET.get("name_contractor")
+    else: name_contractor = cur_name_contractor
+    if request.GET.get("price"):
+        price = request.GET.get("price")
+    else: price = cur_price
+    if request.GET.get("note"):
+        note = request.GET.get("note")
+    else: note = cur_note
+    Plastics.objects.filter(code_sbk=code).update(name_sbk=name_sbk, code_contractor=code_contractor, name_contractor=name_contractor, price=price, note=note)
     return HttpResponse("Обновлено!")
 
 
@@ -169,7 +186,7 @@ def upload_file(request):
                     # messages.success(request, f'Successfully imported files')
                 except Plastics.DoesNotExist:
                     return HttpResponse(f'<h1>неверный код пластика: {row['plastic']}</h1>')
-        return redirect('upload_file')
+        return redirect('home')
     else:
         form = UploadFileForm()
     return render(request, 'upload.html', {'form': form})
