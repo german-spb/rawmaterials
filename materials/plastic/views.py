@@ -112,7 +112,7 @@ def input_update_code_fields(request):
         note = request.GET.get("note")
     else: note = cur_note
     Plastics.objects.filter(code_sbk=code).update(name_sbk=name_sbk, code_contractor=code_contractor, name_contractor=name_contractor, price=price, note=note)
-    return HttpResponse("Обновлено!")
+    return redirect(request.META.get('HTTP_REFERER'))
 
 
 # -------------- Поиск --------------------------------
@@ -121,6 +121,7 @@ def search(request):
     return render(request, "search_form.html")
 
 def search_plastic(request):
+    form = PlasticUpdateForm()
     code_sbk = request.GET.get('code_sbk', 'Запись не найдена')
     plastics_object = Plastics.objects.filter(code_sbk__iexact = code_sbk)
     plastics = [{
@@ -142,7 +143,8 @@ def search_plastic(request):
             'total': c.quantity_3050 + c.quantity_2440 + c.quantity_4200} for c in stocks_object]
         context = {
             'stocks': stocks,
-            'plastics': plastics
+            'plastics': plastics,
+            'form' : form
         }
         return render(request, 'search.html', context)
     except Plastics.DoesNotExist:

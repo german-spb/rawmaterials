@@ -28,7 +28,7 @@ urlpatterns = [
     path('total/', views.list_quantity ),
     path('input/', views.stock),
     path('input/stock/', views.input_stock),
-    path('search/', views.search),
+    path('search/', views.search, name='search'),
     path('search/plastic/', views.search_plastic),
     path('form_delete/', views.form_delete),
     path('form_delete/delete/', views.delete),
@@ -39,7 +39,8 @@ urlpatterns = [
     path('upload_result/', views.upload_result, name='upload_file'),
     path('excel/', views.to_excel),
     path('update/', views.input_update_code),
-    path('update/update_fields/', views.input_update_code_fields),
+    # path('update/update_fields/', views.input_update_code_fields),
+    path('search/plastic/update_fields/', views.input_update_code_fields),
     path('download/<str:filename>/', views.download_file, name='download_file'),
 
 ]

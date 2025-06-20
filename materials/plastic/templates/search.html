@@ -62,6 +62,11 @@
             {% endfor %}
             </tbody>
         </table>
-
+<h2>Обновление кода</h2>
+    <form method="PATCH" action="update_fields/">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Обновить</button>
+    </form>
 </body>
 </html>
