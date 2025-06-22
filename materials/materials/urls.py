@@ -21,6 +21,12 @@ from plastic import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name='home'),
+
+    path('login/', views.login_page, name='login'),
+    path('register/', views.register_page, name='register'),
+    path('logout/', views.logout_view, name='logout'),
+
+    path('plastic/', views.plastic),
     path('code_entry', views.code_entry),
     path('create/', views.create_plastic),
     path('list_code/', views.list_plastic ),

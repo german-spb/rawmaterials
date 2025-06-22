@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+{% load static %}
+<img src="{% static 'img/souzz.png' %}" alt="logo" align='top'>
+<link rel="stylesheet" href="{% static 'styles/navbar1.css' %}">
+<h1>ООО "СоюзБалтКомплект"</h1>
+<h4>Справочная информация</h4>
+<ul>
+    <li><a data-text='Пластик' href="plastic/">Пластик</a></li>
+    <li><a data-text="ДСП" href="#">ДСП</a></li>
+    <li><a data-text="Клей" href="#">Клей</a></li>
+ <li><a data-text="Упаковка" href="#">Упаковка</a></li>
+  <li><a data-text="Телефоны" href="#">Телефоны</a></li>
+</ul>
+<br /><br/>
+<p><a target="_blank" style="font-size: 20px; color: red" href="/logout">Выход</a></p>
+</body>
+</html>

@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.http import HttpResponse, FileResponse
 from django_filters.conf import settings
-
+from django.contrib.auth.models import User
 from .forms import PlasticForm, StockForm, UploadFileForm, PlasticUpdateForm
 from .models import Plastics, Stocks, Result
 import pandas as pd
@@ -11,17 +11,90 @@ from django.shortcuts import get_object_or_404
 import os
 from django.urls import path
 from django.conf import settings
+from django.contrib.auth import authenticate, login, logout
 
 
+def login_page(request):
+    # Check if the HTTP request method is POST (form submission)
+    if request.method == "POST":
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        # Check if a user with the provided username exists
+        if not User.objects.filter(username=username).exists():
+            # Display an error message if the username does not exist
+            messages.error(request, 'Invalid Username')
+            return redirect('/login/')
+
+        # Authenticate the user with the provided username and password
+        user = authenticate(username=username, password=password)
+
+        if user is None:
+            # Display an error message if authentication fails (invalid password)
+            messages.error(request, "Invalid Password")
+            return redirect('/login/')
+        else:
+            # Log in the user and redirect to the home page upon successful login
+            login(request, user)
+            return redirect('home')
+
+    # Render the login page template (GET request)
+    return render(request, 'login.html')
+
+
+def register_page(request):
+    # Check if the HTTP request method is POST (form submission)
+    if request.method == 'POST':
+        first_name = request.POST.get('first_name')
+        last_name = request.POST.get('last_name')
+        username = request.POST.get('username')
+        password = request.POST.get('password')
+
+        # Check if a user with the provided username already exists
+        user = User.objects.filter(username=username)
+
+        if user.exists():
+            # Display an information message if the username is taken
+            messages.info(request, "Username already taken!")
+            return redirect('/register/')
+
+        # Create a new User object with the provided information
+        user = User.objects.create_user(
+            first_name=first_name,
+            last_name=last_name,
+            username=username
+        )
+
+        # Set the user's password and save the user object
+        user.set_password(password)
+        user.save()
+
+        # Display an information message indicating successful account creation
+        messages.info(request, "Account created Successfully!")
+        return redirect('/register/')
+
+    # Render the registration page template (GET request)
+    return render(request, 'register.html')
+
+def logout_view(request):
+    logout(request)
+    return redirect('login')
+
+
+@login_required
 def home(request):
+    return render(request, "navbar1.html")
+
+@login_required
+def plastic(request):
     return render(request, "navbar.html")
 
-
-
+@login_required
 def code_entry(requests):
     form = PlasticForm()
     return render(requests, 'code_entry.html', {'form': form})
 
+@login_required
 def create_plastic(request):
     # получаем из данных запроса POST отправленные через форму данные
     code_sbk = request.POST.get("code_sbk", "Undefined")
@@ -53,7 +126,7 @@ def list_quantity(request):
         'total': c.quantity_3050 + c.quantity_2440 + c.quantity_4200} for c in stocks_object]
     dt = stocks_object.values('created_at').last()['created_at'].strftime("%d-%m-%Y %H:%M")
 
-    return render(request, 'search.html', {'stocks': stocks, 'dt': dt})
+    return render(request, 'search_list_quantity.html', {'stocks': stocks, 'dt': dt})
 
 
 # -------------------- Запись количества ----------------
@@ -187,7 +260,7 @@ def upload_file(request):
                     )
                     # messages.success(request, f'Successfully imported files')
                 except Plastics.DoesNotExist:
-                    return HttpResponse(f'<h1>неверный код пластика: {row['plastic']}</h1>')
+                    return HttpResponse(f'<h1>неверный код пластика: {row["plastic"]}</h1>')
         return redirect('home')
     else:
         form = UploadFileForm()
@@ -238,7 +311,7 @@ def upload_result(request):
                         }
                         Result.objects.update_or_create(plastic=row['plastic'], defaults=values_for_update)
                 except Plastics.DoesNotExist:
-                    return HttpResponse(f'<h1>Пластик с кодом {row['plastic']} отсутствует на складе</h1>')
+                    return HttpResponse(f'<h1>Пластик с кодом {row["plastic"]} отсутствует на складе</h1>')
             # redirect('upload_file')
             return HttpResponse(f'<h1>Таблица поставщика {n} заполнена</h1><br><h2><a href="/">В начало</a></h2>')
     else:
