@@ -33,5 +33,17 @@ class Result(models.Model):
     quantity_rol = models.IntegerField()
     total = models.IntegerField()
 
+class Chipboard(models.Model):
+    thickness = models.CharField(max_length=50)
+    format = models.CharField(max_length=100)
+    aqua = models.CharField(max_length=10)
+    sort = models.CharField(max_length=10)
+    unit = models.CharField(max_length=10)
+    price = models.DecimalField(max_digits=6, decimal_places=2, default=0)
 
+    class Meta:
+        ordering = ['thickness']
+
+    def __str__(self):
+        return self.thickness
 

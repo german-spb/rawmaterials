@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import inlineformset_factory
-from .models import Plastics, Stocks
+from .models import Plastics, Stocks, Chipboard
 from django.forms.models import ModelForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
@@ -56,10 +56,18 @@ class PlasticUpdateForm(forms.Form):
     price = forms.DecimalField(label="Цена", required=False)
     note = forms.CharField(widget=forms.Textarea, required=False)
 
-    # class Meta:
-    #     model = Stocks
-    #     fields = ['plastic']
-    #     labels = {
-    #         'plastic': 'Пластик:',
-    #     }
+
+class ChipboardForm(forms.ModelForm):
+    class Meta:
+        model = Chipboard
+        fields = '__all__'
+        labels = {
+            'thickness': 'Толщина плиты',
+            'format' : 'Формат плиты',
+            'aqua' : 'Водостойкость',
+            'sort': 'Сорт плиты',
+            'unit': 'Единица измерения',
+            'price': 'Цена',
+        }
+
 
