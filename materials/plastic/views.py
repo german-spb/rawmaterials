@@ -195,7 +195,7 @@ def search(request):
 
 def search_plastic(request):
     form = PlasticUpdateForm()
-    code_sbk = request.GET.get('code_sbk', 'Запись не найдена')
+    code_sbk = request.GET.get('code_sbk')
     plastics_object = Plastics.objects.filter(code_sbk__iexact = code_sbk)
     plastics = [{
         'code_sbk': c.code_sbk,
@@ -348,3 +348,8 @@ def download_file(request, filename):
             return response
     else:
         return HttpResponse("File not found", status=404)
+
+#===================================== ДСП =================================================
+
+def chipboard(request):
+    return render(request, 'chipboard.html')
