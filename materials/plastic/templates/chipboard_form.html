@@ -10,7 +10,7 @@
 <body>
 {% include 'chipboard.html' %}
 <h2 style="color: #9ae329">Запись номенклатуры в базу данных</h2>
-    <form method="post" action="create_chipboard/">
+    <form method="post" action="chipboard_create/">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit">Сохранить</button>

@@ -18,6 +18,8 @@ from django.contrib import admin
 from django.urls import path, include
 from plastic import views
 
+
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', views.home, name='home'),
@@ -50,6 +52,7 @@ urlpatterns = [
     path('download/<str:filename>/', views.download_file, name='download_file'),
 
     path('chipboard/', views.chipboard),
-    path('chipboard_form/', views.chipboard_form)
+    path('chipboard_form/', views.chipboard_form),
+    path('chipboard_form/chipboard_create/', views.chipboard_create)
 
 ]

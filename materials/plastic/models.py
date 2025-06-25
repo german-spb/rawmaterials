@@ -39,7 +39,7 @@ class Chipboard(models.Model):
     aqua = models.CharField(max_length=10)
     sort = models.CharField(max_length=10)
     unit = models.CharField(max_length=10)
-    price = models.DecimalField(max_digits=6, decimal_places=2, default=0)
+    price = models.DecimalField(max_digits=8, decimal_places=2, default=0)
 
     class Meta:
         ordering = ['thickness']

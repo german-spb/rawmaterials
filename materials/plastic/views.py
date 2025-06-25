@@ -4,7 +4,7 @@ from django.http import HttpResponse, FileResponse
 from django_filters.conf import settings
 from django.contrib.auth.models import User
 from .forms import PlasticForm, StockForm, UploadFileForm, PlasticUpdateForm, ChipboardForm
-from .models import Plastics, Stocks, Result
+from .models import Plastics, Stocks, Result, Chipboard
 import pandas as pd
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
@@ -352,8 +352,21 @@ def download_file(request, filename):
 #===================================== ДСП =================================================
 
 def chipboard(request):
-    return render(request, 'chipboard.html')
+    chipboars = Chipboard.objects.all()
+    return render(request, 'chipboard.html', {'chipboards': chipboars})
 
 def chipboard_form(request):
     form = ChipboardForm()
-    return render(request, "chipboard_form.html", {'form': form})
+    chipboars = Chipboard.objects.all()
+    return render(request, "chipboard_form.html", {'form': form, 'chipboards': chipboars})
+
+def chipboard_create(request):
+    thickness = request.POST.get('thickness')
+    format = request.POST.get('format')
+    aqua = request.POST.get('aqua')
+    sort = request.POST.get('sort')
+    unit = request.POST.get('unit')
+    price = request.POST.get('price')
+    chipboard = Chipboard(thickness=thickness, format=format, aqua=aqua, sort=sort, unit=unit, price=price)
+    chipboard.save()
+    return HttpResponse('Записано')

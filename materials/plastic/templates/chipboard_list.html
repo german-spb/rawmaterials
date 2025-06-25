@@ -2,22 +2,11 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>ДСП</title>
+    <title>Спецификация</title>
+    {% load static %}
+<link rel="stylesheet" href="{% static 'styles/style.css' %}">
 </head>
 <body>
-{% load static %}
-<link rel="icon" href="/materials/favicon.ico" type="image/x-icon">
-<link rel="stylesheet" href="{% static 'styles/chipboard.css' %}">
-<link rel="stylesheet" href="{% static 'styles/style.css' %}">
-<h1>Древесно-стружечная плита</h1>
-<nav>
-	<a href="/">В начало</a>
-	<a href="/chipboard_form">Создать</a>
-	<a href="#">Запасы</a>
-	<a href="#">Загрузить</a>
-	<a href="#">Удалить</a>
-	<div class="animation start-home"></div>
-</nav>
 
 <div class="container">
     <div class="row">
@@ -37,8 +26,8 @@
                 <tr>
                     <td>{{ chipboard.thickness }}</td>
                     <td>{{ chipboard.format }}</td>
-                    <td>{{ chipboard.sort }}</td>
                     <td>{{ chipboard.aqua }}</td>
+                    <td>{{ chipboard.sort }}</td>
                     <td>{{ chipboard.unit }}</td>
                     <td>{{ chipboard.price }}</td>
                 </tr>
