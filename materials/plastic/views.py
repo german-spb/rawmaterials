@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.http import HttpResponse, FileResponse
 from django_filters.conf import settings
 from django.contrib.auth.models import User
-from .forms import PlasticForm, StockForm, UploadFileForm, PlasticUpdateForm
+from .forms import PlasticForm, StockForm, UploadFileForm, PlasticUpdateForm, ChipboardForm
 from .models import Plastics, Stocks, Result
 import pandas as pd
 from django.contrib.auth.decorators import login_required
@@ -185,7 +185,7 @@ def input_update_code_fields(request):
         note = request.GET.get("note")
     else: note = cur_note
     Plastics.objects.filter(code_sbk=code).update(name_sbk=name_sbk, code_contractor=code_contractor, name_contractor=name_contractor, price=price, note=note)
-    return redirect(request.META.get('HTTP_REFERER'))
+    return redirect(request.META.get('HTTP_REFERER')) # возврат на предыдущую страницу
 
 
 # -------------- Поиск --------------------------------
@@ -353,3 +353,7 @@ def download_file(request, filename):
 
 def chipboard(request):
     return render(request, 'chipboard.html')
+
+def chipboard_form(request):
+    form = ChipboardForm()
+    return render(request, "chipboard_form.html", {'form': form})

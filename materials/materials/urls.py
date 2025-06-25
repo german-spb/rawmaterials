@@ -49,6 +49,7 @@ urlpatterns = [
     path('search/plastic/update_fields/', views.input_update_code_fields),
     path('download/<str:filename>/', views.download_file, name='download_file'),
 
-    path('chipboard/', views.chipboard)
+    path('chipboard/', views.chipboard),
+    path('chipboard_form/', views.chipboard_form)
 
 ]

@@ -6,14 +6,14 @@
 }
 
 html{ height:100%; font-family: 'Roboto Condensed'; }
-body{ min-height:100%;  background-image: -webkit-radial-gradient(top, circle cover, #717a7a 0%, #717a7a 80%);
+body{ min-height:100%;
  background-image: -moz-radial-gradient(top, circle cover, #3c3b52 0%, #252233 80%);
  background-image: -o-radial-gradient(top, circle cover, #3c3b52 0%, #252233 80%);
  background-image: radial-gradient(top, circle cover, #3c3b52 0%, #252233 80%); }
 
 *{ margin:0; padding:0; }
 
-body{ text-align:center; padding:20px 0; }
+body{ text-align:center; padding:20px 0; background-color: #4a6b6c}
 
 h1{ font-size:1.8em; color:#fff; margin-bottom:50px; letter-spacing:-1px; text-transform:capitalize; text-shadow:0 2px 2px rgba(0,0,0,0.6); }
 
