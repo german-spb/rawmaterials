@@ -1,0 +1,13 @@
+
+.forms {
+  display: flex;
+
+}
+
+.form_create {
+  flex: 1
+}
+
+.form_update {
+  flex: 1
+}

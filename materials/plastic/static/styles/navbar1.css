@@ -6,10 +6,7 @@
 }
 
 html{ height:100%; font-family: 'Roboto Condensed'; }
-body{ min-height:100%;
- background-image: -moz-radial-gradient(top, circle cover, #3c3b52 0%, #252233 80%);
- background-image: -o-radial-gradient(top, circle cover, #3c3b52 0%, #252233 80%);
- background-image: radial-gradient(top, circle cover, #3c3b52 0%, #252233 80%); }
+body{ min-height:100%; }
 
 *{ margin:0; padding:0; }
 

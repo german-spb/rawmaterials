@@ -3,18 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <title>Создание номенклатуры</title>
-    <link rel="icon" type="image/x-icon" href="/static/img/favicon.ico">
     {% load static %}
-
+    <link rel="icon" type="image/x-icon" href="/static/img/favicon.ico">
+    <link rel="stylesheet" href="{% static 'styles/chipboard_form.css' %}">
 </head>
 <body>
 {% include 'chipboard.html' %}
-<h2 style="color: #9ae329">Запись номенклатуры в базу данных</h2>
-    <form method="post" action="chipboard_create/">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit">Сохранить</button>
-    </form>
+<div class="forms" >
+        <div class="form_create">
+            <h2 style="color: #9ae329">Записать номенклатуру</h2>
+                <form method="post" action="chipboard_create/">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit">Сохранить</button>
+                </form>
+        </div>
+        <div class="form_update">
+            <h2 style="color: #9ae329">Обновить номенклатуру</h2>
+                <form method="post" action="chipboard_update/">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit">Обновить</button>
+                </form>
+        </div>
+</div>
 
 </body>
 </html>

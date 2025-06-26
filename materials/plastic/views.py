@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.http import HttpResponse, FileResponse
 from django_filters.conf import settings
 from django.contrib.auth.models import User
-from .forms import PlasticForm, StockForm, UploadFileForm, PlasticUpdateForm, ChipboardForm
+from .forms import PlasticForm, StockForm, UploadFileForm, PlasticUpdateForm, ChipboardForm, ChipboardUpdateForm
 from .models import Plastics, Stocks, Result, Chipboard
 import pandas as pd
 from django.contrib.auth.decorators import login_required
@@ -356,9 +356,10 @@ def chipboard(request):
     return render(request, 'chipboard.html', {'chipboards': chipboars})
 
 def chipboard_form(request):
-    form = ChipboardForm()
+    form_create = ChipboardForm()
+    form_update = ChipboardUpdateForm
     chipboars = Chipboard.objects.all()
-    return render(request, "chipboard_form.html", {'form': form, 'chipboards': chipboars})
+    return render(request, "chipboard_form.html", {'form': form_create, 'form_update': form_update, 'chipboards': chipboars})
 
 def chipboard_create(request):
     thickness = request.POST.get('thickness')
@@ -369,4 +370,46 @@ def chipboard_create(request):
     price = request.POST.get('price')
     chipboard = Chipboard(thickness=thickness, format=format, aqua=aqua, sort=sort, unit=unit, price=price)
     chipboard.save()
-    return HttpResponse('Записано')
+    # return HttpResponse('Записано')
+    return redirect(request.META.get('HTTP_REFERER'))
+
+def chipboard_update(request):
+    thickness = request.GET.get('thickness')
+    format = request.GET.get('format')
+    aqua = request.GET.get('aqua')
+    sort = request.GET.get('sort')
+    chip_objects = Chipboard.objects.filter(thickness=thickness)
+    print(chip_objects)
+    chipboards = [{
+        'thickness': c.thickness,
+        'format': c.format,
+        'aqua': c.aqua,
+        'sort': c.sort,
+        'unit': c.unit,
+        'price': c.price} for c in chip_objects]
+    print(chipboards)
+    cur_thickness = chipboards[0]['thickness']
+    cur_format = chipboards[0]['format']
+    cur_aqua = chipboards[0]['aqua']
+    cur_sort = chipboards[0]['sort']
+    cur_unit = chipboards[0]['unit']
+    cur_price = chipboards[0]['price']
+    if request.GET.get("thickness"):
+        thickness = request.GET.get("thickness")
+    else: thickness = cur_thickness
+    if request.GET.get("format"):
+        format = request.GET.get("format")
+    else: format = cur_format
+    if request.GET.get("aqua"):
+        aqua = request.GET.get("aqua")
+    else: aqua = cur_aqua
+    if request.GET.get("unit"):
+        unit = request.GET.get("unit")
+    else: unit = cur_unit
+    if request.GET.get("price"):
+        price = request.GET.get("price")
+    else: price = cur_price
+    Chipboard.objects.filter(thickness=thickness, format=format, aqua=aqua,sort=sort).update(thickness=thickness, format=format, aqua=aqua,sort=sort, unit=unit, price=price)
+    return redirect(request.META.get('HTTP_REFERER'))
+
+
