@@ -54,6 +54,5 @@ urlpatterns = [
     path('chipboard/', views.chipboard),
     path('chipboard_form/', views.chipboard_form),
     path('chipboard_form/chipboard_create/', views.chipboard_create),
-    path('chipboard_form/chipboard_update/', views.chipboard_update)
 
 ]

@@ -70,12 +70,6 @@ class ChipboardForm(forms.ModelForm):
             'price': 'Цена',
         }
 
-class ChipboardUpdateForm(forms.Form):
-    thickness = forms.CharField(label="Наименование", required=True)
-    form = forms.CharField(label="Формат", required=True)
-    aqua = forms.CharField(label="Влагостойкость", required=True)
-    sort = forms.CharField(label="Сорт", required=True)
-    unit = forms.CharField(label="Единица изм.", required=False)
-    price = forms.DecimalField(label="Цена", required=False)
+
 
 
