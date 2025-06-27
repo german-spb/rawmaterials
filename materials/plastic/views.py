@@ -372,5 +372,11 @@ def chipboard_create(request):
     # return HttpResponse('Записано')
     return redirect(request.META.get('HTTP_REFERER'))
 
+def chipboard_delete_form(request):
+    return render(request, 'chipboard_delete.html')
 
-
+def chipboard_delete(request):
+    id_chipboard = request.GET.get('id')
+    print((id_chipboard))
+    Chipboard.objects.get(id=id_chipboard).delete()
+    return redirect('chipboard')
