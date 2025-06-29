@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ДБСП</title>
+    {% load static %}
+    {% load humanize %}
+    <link rel="icon" href="{% static 'img/favicon.ico' %}" />
+    <link rel="stylesheet" href="{% static 'styles/plastic.css' %}">
+</head>
+<body>
+<h3>Декоративный бумажно - слоистый пластик</h3>
+<div class="block">
+
+<nav class="dropdownmenu">
+  <ul>
+    <li><a href="/">В начало</a></li>
+    <li><a style="color: #dd2121f0" href="/total">Запасы на складе</a></li>
+    <li><a href="/search">Поиск по коду</a>
+      <ul id="submenu">
+        <li><a href="/code_entry">Создать код</a></li>
+        <li><a href="/update">Обновить код</a></li>
+        <li><a href="/form_delete">Удалить код</a></li>
+      </ul>
+    </li>
+    <li><a href="/upload">Загрузить остатки</a></li>
+    <li><a href="/delete_stock">Удалить остатки</a></li>
+  </ul>
+</nav>
+</div>
+</body>
+</html>

@@ -1,0 +1,80 @@
+.block {
+   display: flex;
+   justify-content: center;
+   align-items: center;
+}
+
+
+.dropdownmenu ul, .dropdownmenu li {
+	margin-left: auto;
+    margin-right: auto;
+}
+.dropdownmenu ul {
+	background: gray;
+	list-style: none;
+	width: 100%;
+}
+.dropdownmenu li {
+	float: left;
+	position: relative;
+	width:auto;
+	border: solid;
+    border-radius: 5px;
+    box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
+}
+.dropdownmenu a {
+	background: rgb(94 193 103);
+	color: #FFFFFF;
+	display: block;
+	font: bold 16px/30px sans-serif;
+	padding: 10px 25px;
+	text-align: center;
+	text-decoration: none;
+	-webkit-transition: all .25s ease;
+	-moz-transition: all .25s ease;
+	-ms-transition: all .25s ease;
+	-o-transition: all .25s ease;
+	transition: all .25s ease;
+}
+.dropdownmenu li:hover a {
+	background: #000000;
+}
+#submenu {
+	left: 0;
+	opacity: 0;
+	position: absolute;
+	top: 35px;
+	visibility: hidden;
+	z-index: 1;
+}
+li:hover ul#submenu {
+	opacity: 1;
+	top: 40px;	/* adjust this as per top nav padding top & bottom comes */
+	visibility: visible;
+}
+#submenu li {
+	float: none;
+	width: 100%;
+}
+#submenu a:hover {
+	background: #DF4B05;
+}
+#submenu a {
+	background-color:#000000;
+}
+
+h3{ font-size:1.5em; color:#fff; margin-bottom:20px;
+     letter-spacing:-1px; text-transform:capitalize;
+     text-shadow:0 2px 2px rgba(0,0,0,0.6);
+     text-align:center;
+    }
+
+body {
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 5px, 50px;
+    background-color: #4a6b6c;
+    color: #e6dfdf;
+
+}

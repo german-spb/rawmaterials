@@ -42,7 +42,7 @@ class Chipboard(models.Model):
     price = models.DecimalField(max_digits=8, decimal_places=2, default=0)
 
     class Meta:
-        ordering = ['thickness']
+        ordering = ['thickness', 'aqua',]
 
     def __str__(self):
         return self.thickness

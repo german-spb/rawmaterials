@@ -87,7 +87,7 @@ def home(request):
 
 @login_required
 def plastic(request):
-    return render(request, "navbar.html")
+    return render(request, "plastic.html")
 
 @login_required
 def code_entry(requests):
@@ -116,17 +116,19 @@ def list_plastic(request):
 
 
 def list_quantity(request):
-    stocks_object = Stocks.objects.all()
-    stocks = [{
-        'plastic': c.plastic,
-        'quantity_3050': c.quantity_3050,
-        'quantity_2440': c.quantity_2440,
-        'quantity_4200': c.quantity_4200,
-        'quantity_rol': c.quantity_rol,
-        'total': c.quantity_3050 + c.quantity_2440 + c.quantity_4200} for c in stocks_object]
-    dt = stocks_object.values('created_at').last()['created_at'].strftime("%d-%m-%Y %H:%M")
-
-    return render(request, 'search_list_quantity.html', {'stocks': stocks, 'dt': dt})
+    try:
+        stocks_object = Stocks.objects.all().order_by('plastic')
+        stocks = [{
+            'plastic': c.plastic,
+            'quantity_3050': c.quantity_3050,
+            'quantity_2440': c.quantity_2440,
+            'quantity_4200': c.quantity_4200,
+            'quantity_rol': c.quantity_rol,
+            'total': c.quantity_3050 + c.quantity_2440 + c.quantity_4200} for c in stocks_object]
+        dt = stocks_object.values('created_at').last()['created_at'].strftime("%d-%m-%Y  %H:%M")
+        return render(request, 'search_list_quantity.html', {'stocks': stocks, 'dt': dt})
+    except:
+        return HttpResponse('<h1>Таблица остатков не загружена</h1>')
 
 
 # -------------------- Запись количества ----------------

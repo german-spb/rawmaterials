@@ -7,7 +7,7 @@
 <body>
 {% load static %}
 <img src="{% static 'img/souzz.png' %}" alt="logo" align='top'>
-    <h2>Удаление номенклатуры плиты</h2>
+    <h2 style="color: red">Удаление номенклатуры плиты !!!</h2>
     <form method="delete" action="chipboard_delete/">
         {% csrf_token %}
         <p>ID номенклатуры:<br> <input name="id" /></p>
