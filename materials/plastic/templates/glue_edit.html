@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактирование записи клея</title>
+</head>
+<body>
+    <form method="POST">
+        {% csrf_token %}
+        <p>
+            <label>Введите название</label><br>
+            <input type="text" name="name" value="{{glue.name}}" />
+        </p>
+        <p>
+            <label>Основной</label><br>
+            <input type="checkbox" name="main" value="{{glue.main}}" />
+        </p>
+         <p>
+            <label>Укажите тип клея</label><br>
+            <input type="text" name="type" value="{{glue.type}}" />
+        </p>
+        <p>
+            <label>Введите поставщика</label><br>
+            <input type="text" name="supplier" value="{{glue.supplier}}" />
+        </p>
+         <p>
+            <label>Укажите вид упаковки</label><br>
+            <input type="text" name="pack" value="{{glue.pack}}" />
+        </p>
+         <p>
+            <label>Введите цену</label><br>
+            <input type="number" name="price" value="{{glue.price}}" />
+        </p>
+        <p>
+            <label>Производственная линия</label><br>
+            <input type="text" name="line" value="{{glue.line}}" />
+        </p>
+        <input type="submit" value="Сохранить" >
+    </form>
+</body>
+</html>

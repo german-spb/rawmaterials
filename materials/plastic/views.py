@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from django.http import HttpResponse, FileResponse
+from django.http import HttpResponse, FileResponse, HttpResponseRedirect, HttpResponseNotFound
 from django_filters.conf import settings
 from django.contrib.auth.models import User
 from .forms import PlasticForm, StockForm, UploadFileForm, PlasticUpdateForm, ChipboardForm, GlueForm
@@ -408,3 +408,22 @@ def glue_create(request):
     glued.save()
     # return HttpResponse('Записано')
     return redirect(request.META.get('HTTP_REFERER'))
+
+
+def glue_edit(request, id):
+    try:
+        glue = Glue.objects.get(id=id)
+        if request.method == "POST":
+            glue.name = request.POST.get("name")
+            glue.main = request.POST.get("main")
+            glue.type = request.POST.get("type")
+            glue.supplier = request.POST.get("supplier")
+            glue.pack = request.POST.get("pack")
+            glue.price = request.POST.get("price")
+            glue.line = request.POST.get("line")
+            glue.save()
+            return redirect('glue')
+        else:
+            return render(request, "glue_edit.html", {"glue": glue})
+    except Glue.DoesNotExist:
+        return HttpResponseNotFound("<h2>Клей не найден!</h2>")

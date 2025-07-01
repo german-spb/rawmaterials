@@ -31,6 +31,7 @@
                 <th>Упаковка</th>
                 <th>Цена с НДС</th>
                 <th>Линия №</th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
@@ -43,6 +44,7 @@
                     <td>{{ glue.pack }}</td>
                     <td>{{ glue.price | intcomma }}</td>
                     <td>{{ glue.line }}</td>
+                    <td><a href="glue_edit/{{glue.id}}">Изменить</a> | <a href="glue_delete/{{person.id}}">Удалить</a></td>
                 </tr>
             {% endfor %}
             </tbody>

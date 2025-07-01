@@ -60,5 +60,6 @@ urlpatterns = [
     path('glue/', views.glue, name='glue'),
     path('glue_form/', views.glue_form),
     path('glue_form/glue_create/', views.glue_create),
+    path('glue_form/glue_edit/<int:id>/', views.glue_edit),
 
 ]
