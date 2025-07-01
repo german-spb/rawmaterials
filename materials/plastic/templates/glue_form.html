@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Записать клей</title>
+   {% load static %}
+    <link rel="icon" href="{% static 'img/favicon.ico' %}" />
+
+</head>
+<body>
+{% include 'glue.html' %}
+<div class="forms" >
+        <div class="form_create">
+            <h2 style="color: #9ae329">Записать номенклатуру</h2>
+                <form method="post" action="glue_create/">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit">Сохранить</button>
+                </form>
+        </div>
+</div>
+</body>
+</html>

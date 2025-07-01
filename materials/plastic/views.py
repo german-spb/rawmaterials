@@ -3,8 +3,8 @@ from django.contrib import messages
 from django.http import HttpResponse, FileResponse
 from django_filters.conf import settings
 from django.contrib.auth.models import User
-from .forms import PlasticForm, StockForm, UploadFileForm, PlasticUpdateForm, ChipboardForm
-from .models import Plastics, Stocks, Result, Chipboard
+from .forms import PlasticForm, StockForm, UploadFileForm, PlasticUpdateForm, ChipboardForm, GlueForm
+from .models import Plastics, Stocks, Result, Chipboard, Glue
 import pandas as pd
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
@@ -382,3 +382,29 @@ def chipboard_delete(request):
     print((id_chipboard))
     Chipboard.objects.get(id=id_chipboard).delete()
     return redirect('chipboard')
+
+#==================================== КЛЕЙ ===============================================
+def glue(request):
+    glues = Glue.objects.all()
+    return render (request, 'glue.html', {'glues': glues})
+
+def glue_form(request):
+    form = GlueForm()
+    glues = Glue.objects.all()
+    return render(request, 'glue_form.html', {'form': form, 'glues': glues})
+
+def glue_create(request):
+    name = request.POST.get('name')
+    main = request.POST.get('main')
+    if main == 'on':
+        main = True
+    else: main = False
+    type = request.POST.get('type')
+    supplier = request.POST.get('supplier')
+    pack = request.POST.get('pack')
+    price = request.POST.get('price')
+    line = request.POST.get('line')
+    glued = Glue(name=name, main=main, type=type, supplier=supplier, pack=pack, price=price, line=line)
+    glued.save()
+    # return HttpResponse('Записано')
+    return redirect(request.META.get('HTTP_REFERER'))

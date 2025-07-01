@@ -47,3 +47,15 @@ class Chipboard(models.Model):
     def __str__(self):
         return self.thickness
 
+
+class Glue(models.Model):
+    name = models.CharField(max_length=200)
+    main = models.BooleanField(blank=True)
+    type = models.CharField(max_length=50)
+    supplier = models.CharField(max_length=150)
+    pack = models.CharField(max_length=100)
+    price = models.DecimalField(max_digits=8, decimal_places=2, default=0)
+    line = models.CharField(max_length=250)
+
+    def __str__(self):
+        return self.line

@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import inlineformset_factory
-from .models import Plastics, Stocks, Chipboard
+from .models import Plastics, Stocks, Chipboard, Glue
 from django.forms.models import ModelForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
@@ -71,5 +71,18 @@ class ChipboardForm(forms.ModelForm):
         }
 
 
+class GlueForm(forms.ModelForm):
+    class Meta:
+        model = Glue
+        fields = '__all__'
+        labels = {
+            'name': 'Название',
+            'main': 'Основной',
+            'type': 'Тип',
+            'supplier': 'Поставщик',
+            'pack': 'Упаковка',
+            'price': 'Цена',
+            'line': 'Линия №'
+        }
 
 

@@ -7,7 +7,7 @@
 <body>
 {% load static %}
 {% load humanize %}
-<!--<link rel="icon" href="/materials/plastic/static/img/favicon.ico" type="image/x-icon">-->
+
 <link rel="stylesheet" href="{% static 'styles/chipboard.css' %}">
 <link rel="icon" href="{% static 'img/favicon.ico' %}" />
 <link rel="stylesheet" href="{% static 'styles/style.css' %}">
@@ -26,25 +26,25 @@
         <table class="u-full-width" >
             <thead>
             <tr>
-                <th>id</th>
                 <th>Наименование</th>
                 <th>Формат</th>
                 <th>Сорт</th>
                 <th>Влаг.</th>
                 <th>Ед.изм.</th>
                 <th>Цена</th>
+                <th></th>
             </tr>
             </thead>
             <tbody>
             {% for chipboard  in chipboards  %}
                 <tr>
-                    <td>id {{ chipboard.id }}</td>
                     <td>{{ chipboard.thickness }}</td>
                     <td>{{ chipboard.format }}</td>
                     <td>{{ chipboard.sort }}</td>
                     <td>{{ chipboard.aqua }}</td>
                     <td>{{ chipboard.unit }}</td>
                     <td>{{ chipboard.price | intcomma }}</td>
+                    <td>id {{ chipboard.id }}</td>
                 </tr>
             {% endfor %}
             </tbody>

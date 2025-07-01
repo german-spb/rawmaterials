@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Клеевые материалы</title>
+    {% load static %}
+    {% load humanize %}
+    <link rel="icon" href="{% static 'img/favicon.ico' %}" />
+    <link rel="stylesheet" href="{% static 'styles/glue.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/style.css' %}">
+</head>
+<body>
+<h1>Клеевые материалы</h1>
+<nav>
+	<a href="/">В начало</a>
+	<a href="/glue_form">Записать</a>
+	<a href="#">КП</a>
+
+	<div class="animation start-home"></div>
+</nav>
+
+<div class="container">
+    <div class="row">
+        <table class="u-full-width" >
+            <thead>
+            <tr>
+                <th>Наименование</th>
+                <th>Основной</th>
+                <th>Тип</th>
+                <th>Поставщик</th>
+                <th>Упаковка</th>
+                <th>Цена с НДС</th>
+                <th>Линия №</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for glue  in glues  %}
+                <tr>
+                    <td>{{ glue.name }}</td>
+                    <td>{{ glue.main }}</td>
+                    <td>{{ glue.type }}</td>
+                    <td>{{ glue.supplier }}</td>
+                    <td>{{ glue.pack }}</td>
+                    <td>{{ glue.price | intcomma }}</td>
+                    <td>{{ glue.line }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+</body>
+</html>

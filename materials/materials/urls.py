@@ -55,6 +55,10 @@ urlpatterns = [
     path('chipboard_form/', views.chipboard_form),
     path('chipboard_form/chipboard_create/', views.chipboard_create),
     path('chipboard_delete_form/', views.chipboard_delete_form),
-    path('chipboard_delete_form/chipboard_delete/', views.chipboard_delete)
+    path('chipboard_delete_form/chipboard_delete/', views.chipboard_delete),
+
+    path('glue/', views.glue, name='glue'),
+    path('glue_form/', views.glue_form),
+    path('glue_form/glue_create/', views.glue_create),
 
 ]
