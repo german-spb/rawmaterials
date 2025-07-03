@@ -415,7 +415,13 @@ def glue_edit(request, id):
         glue = Glue.objects.get(id=id)
         if request.method == "POST":
             glue.name = request.POST.get("name")
-            glue.main = request.POST.get("main")
+
+            print(glue)
+            if glue.main == 'on':
+                glue.main = True
+            else:
+                glue.main = False
+            print(glue.main)
             glue.type = request.POST.get("type")
             glue.supplier = request.POST.get("supplier")
             glue.pack = request.POST.get("pack")

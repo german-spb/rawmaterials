@@ -38,7 +38,7 @@
             {% for glue  in glues  %}
                 <tr>
                     <td>{{ glue.name }}</td>
-                    <td>{{ glue.main }}</td>
+                    <td style="text-align: center">{% if glue.main == True %}  <input type="checkbox" checked> {% else %}  {% endif %} </td>
                     <td>{{ glue.type }}</td>
                     <td>{{ glue.supplier }}</td>
                     <td>{{ glue.pack }}</td>
