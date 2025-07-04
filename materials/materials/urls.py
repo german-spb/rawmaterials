@@ -62,5 +62,7 @@ urlpatterns = [
     path('glue_form/glue_create/', views.glue_create),
     path('glue_form/glue_edit/<int:id>/', views.glue_edit),
     path('glue/glue_edit/<int:id>/', views.glue_edit),
+    path('glue/glue_delete/<int:id>/', views.glue_delete),
+    path('glue_form/glue_delete/<int:id>/', views.glue_delete)
 
 ]

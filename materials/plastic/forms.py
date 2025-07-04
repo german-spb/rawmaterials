@@ -85,4 +85,12 @@ class GlueForm(forms.ModelForm):
             'line': 'Линия №'
         }
 
+class GlueForm2(forms.Form):
+    name = forms.CharField(label='Название', required=True)
+    main = forms.BooleanField(label='Основной', required=False)
+    type = forms.CharField(label='Тип', required=True)
+    supplier = forms.CharField(label='Поставщик', required=True)
+    pack = forms.CharField(label='Упаковка',required=True)
+    price = forms.DecimalField(label='Цена', required=True)
+    line = forms.CharField(label='Линия', required=True)
 

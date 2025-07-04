@@ -3,7 +3,7 @@ from django.contrib import messages
 from django.http import HttpResponse, FileResponse, HttpResponseRedirect, HttpResponseNotFound
 from django_filters.conf import settings
 from django.contrib.auth.models import User
-from .forms import PlasticForm, StockForm, UploadFileForm, PlasticUpdateForm, ChipboardForm, GlueForm
+from .forms import PlasticForm, StockForm, UploadFileForm, PlasticUpdateForm, ChipboardForm, GlueForm, GlueForm2
 from .models import Plastics, Stocks, Result, Chipboard, Glue
 import pandas as pd
 from django.contrib.auth.decorators import login_required
@@ -389,7 +389,7 @@ def glue(request):
     return render (request, 'glue.html', {'glues': glues})
 
 def glue_form(request):
-    form = GlueForm()
+    form = GlueForm2()
     glues = Glue.objects.all()
     return render(request, 'glue_form.html', {'form': form, 'glues': glues})
 
@@ -415,8 +415,8 @@ def glue_edit(request, id):
         glue = Glue.objects.get(id=id)
         if request.method == "POST":
             glue.name = request.POST.get("name")
-
-            print(glue)
+            glue.main = request.POST.get("main")
+            print(glue.main)
             if glue.main == 'on':
                 glue.main = True
             else:
@@ -427,9 +427,14 @@ def glue_edit(request, id):
             glue.pack = request.POST.get("pack")
             glue.price = request.POST.get("price")
             glue.line = request.POST.get("line")
-            glue.save()
+            Glue.objects.filter(id=id).update(name=glue.name, main=glue.main, type=glue.type, supplier=glue.supplier, pack=glue.pack, price=glue.price, line=glue.line)
             return redirect('glue')
         else:
             return render(request, "glue_edit.html", {"glue": glue})
     except Glue.DoesNotExist:
         return HttpResponseNotFound("<h2>Клей не найден!</h2>")
+
+def glue_delete(request, id):
+    glue = Glue.objects.get(id=id)
+    glue.delete()
+    return redirect('glue')
