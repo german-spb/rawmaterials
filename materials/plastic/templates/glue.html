@@ -44,7 +44,7 @@
                     <td>{{ glue.pack }}</td>
                     <td>{{ glue.price | intcomma }}</td>
                     <td>{{ glue.line }}</td>
-                    <td><a href="glue_edit/{{glue.id}}">Изменить</a> | <a href="glue_delete/{{glue.id}}">Удалить</a></td>
+                    <td><a href="glue_edit/{{glue.id}}">Изменить</a> | <a href="glue_delete_confirm/{{ glue.id }}">Удалить</a></td>
                 </tr>
             {% endfor %}
             </tbody>

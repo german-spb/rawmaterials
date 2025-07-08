@@ -13,12 +13,8 @@
         </p>
         <p>
             <label>Основной</label><br>
-             {% if not glue.main %}
-            <input type = 'checkbox' name = 'main' value="{{glue.main}}"><br/>
-            {% endif %}
-            {% if glue.main %}
-            <input type = 'checkbox' name = 'main' value="{{glue.main}}" checked="CHECKED"><br/>
-            {% endif %}
+<!--            {% if main == True %}  <input type="checkbox" checked value="{{glue.main}}"> {% else %} <input type="checkbox" value="{{glue.main}}">  {% endif %}-->
+            <input type="checkbox" name="main" value="{{glue.main}}" />
         </p>
          <p>
             <label>Укажите тип клея</label><br>
