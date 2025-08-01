@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Удаление записи</title>
+</head>
+<body>
+    <fieldset class="form-group">
+        {% csrf_token %}
+        <legend class="border-bottom mb-4">Удаление записи</legend>
+        <h4>Вы уверены, что хотите удалить эту запись: <br>"{{ glue.name }}" ?</h4>
+    </fieldset>
+    <div class="form-group">
+        <a class="btn btn-confirm" style='color:red;' href="{% url 'glue_delete' glue.id %}">Да, хочу удалить</a>&nbsp;&nbsp;&nbsp;
+        <a class="btn btn-cancel" href="{% url 'glue' %}">Отмена</a>
+    </div>
+</body>
+</html>
