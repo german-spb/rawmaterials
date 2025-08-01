@@ -74,9 +74,10 @@ body {
 	font-size: 16px;
 	font-family: sans-serif;
 	background-color: #4a6b6c
-
+    display: flex;
 
 }
+
 h1 {
 	text-align: center;
 	margin: 40px 0 40px;
@@ -88,6 +89,8 @@ h1 {
 }
 
 form {
+    transform: translate(200px);
+    margin: 0 auto;
     bottom: 0px;
     width: 100%;
     color: #ecf0f1;

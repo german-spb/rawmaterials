@@ -19,6 +19,12 @@
 	<div class="animation start-home"></div>
 </nav>
 
+    <form method="get" action="plastic/">
+            {% csrf_token %}
+            <p>Поиск по названию:<br> <input name="code_sbk" /></p>
+            <input type="submit" value="Найти" />
+    </form>
+
 <div class="container">
     <div class="row">
         <table class="u-full-width" >

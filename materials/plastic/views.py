@@ -425,7 +425,7 @@ def glue_edit(request, id):
             glue.type = request.POST.get("type")
             glue.supplier = request.POST.get("supplier")
             glue.pack = request.POST.get("pack")
-            glue.price = request.POST.get("price")
+            glue.price = int(request.POST.get("price"))
             glue.line = request.POST.get("line")
             Glue.objects.filter(id=id).update(name=glue.name, main=glue.main, type=glue.type, supplier=glue.supplier, pack=glue.pack, price=glue.price, line=glue.line)
             return redirect('glue')
