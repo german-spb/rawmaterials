@@ -94,3 +94,10 @@ class GlueForm2(forms.Form):
     price = forms.DecimalField(label='Цена', required=True)
     line = forms.CharField(label='Линия', required=True)
 
+class PackForm(forms.Form):
+    name = forms.CharField(label='Название материала', required=True)
+    unit = forms.CharField(label='Ед. измерения', required=True)
+    supplier = forms.CharField(label='Поставщик', required=True)
+    price = forms.DecimalField(label='Цена', required=True)
+    note = forms.CharField(widget=forms.Textarea, required=False)
+

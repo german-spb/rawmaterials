@@ -62,9 +62,15 @@ urlpatterns = [
     path('glue_form/glue_create/', views.glue_create),
     path('glue_form/glue_edit/<int:id>/', views.glue_edit),
     path('glue/glue_edit/<int:id>/', views.glue_edit),
+    path('glue/search_glue/glue_edit/<int:id>/', views.glue_edit),
     path('glue/glue_delete_confirm/<int:id>/', views.glue_delete_confirm, name='glue_delete_confirm'),
     path('glue_form/glue_delete_confirm/<int:id>/', views.glue_delete_confirm, name='glue_delete_confirm'),
     path('glue/glue_delete/<int:id>/', views.glue_delete, name='glue_delete'),
-    path('glue_form/glue_delete/<int:id>/', views.glue_delete, name='glue_delete')
+    path('glue_form/glue_delete/<int:id>/', views.glue_delete, name='glue_delete'),
+    path('glue/search_glue/', views.search_glue),
+    path('glue_form/search_glue/', views.search_glue),
+
+    path('pack/', views.pack, name='pack'),
+    path('pack_form/', views.pack_form),
 
 ]

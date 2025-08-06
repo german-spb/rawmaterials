@@ -62,3 +62,13 @@ class Glue(models.Model):
 
     def __str__(self):
         return self.line
+
+class Pack(models.Model):
+    name = models.CharField(max_length=200)
+    unit = models.CharField(max_length=50)
+    supplier = models.CharField(max_length=200)
+    price = models.DecimalField(max_digits=8, decimal_places=2, default=0)
+    note = models.TextField(blank=True, default='')
+
+    class Meta:
+        ordering = ['name',]

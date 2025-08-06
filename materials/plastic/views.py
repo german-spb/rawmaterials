@@ -3,8 +3,8 @@ from django.contrib import messages
 from django.http import HttpResponse, FileResponse, HttpResponseRedirect, HttpResponseNotFound
 from django_filters.conf import settings
 from django.contrib.auth.models import User
-from .forms import PlasticForm, StockForm, UploadFileForm, PlasticUpdateForm, ChipboardForm, GlueForm
-from .models import Plastics, Stocks, Result, Chipboard, Glue
+from .forms import PlasticForm, StockForm, UploadFileForm, PlasticUpdateForm, ChipboardForm, GlueForm, PackForm
+from .models import Plastics, Stocks, Result, Chipboard, Glue, Pack
 import pandas as pd
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
@@ -425,7 +425,7 @@ def glue_edit(request, id):
             glue.type = request.POST.get("type")
             glue.supplier = request.POST.get("supplier")
             glue.pack = request.POST.get("pack")
-            glue.price = int(request.POST.get("price"))
+            glue.price = request.POST.get("price")
             glue.line = request.POST.get("line")
             glue.save()
             return redirect('glue')
@@ -433,6 +433,13 @@ def glue_edit(request, id):
             return render(request, "glue_edit.html", {"glue": glue})
     except Glue.DoesNotExist:
         return HttpResponseNotFound("<h2>Клей не найден!</h2>")
+
+def search_glue(request):
+    name = request.GET.get("name")
+    glues = Glue.objects.filter(name__icontains=name)
+    return render(request, "glue.html", {"glues": glues})
+
+
 
 def glue_delete_confirm(request, id):
     glue = Glue.objects.get(id=id)
@@ -442,3 +449,14 @@ def glue_delete(request, id):
     glue = Glue.objects.get(id=id)
     glue.delete()
     return redirect('glue')
+
+#================================ УПАКОВКА ===============================================
+
+def pack(request):
+    packs = Pack.objects.all()
+    return render(request, 'pack.html', {'packs': packs})
+
+def pack_form(request):
+    form = PackForm()
+    packs = Pack.objects.all()
+    return render(request, 'pack_form.html', {'form':form, 'packs': packs})
