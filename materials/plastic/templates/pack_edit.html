@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактирование</title>
+</head>
+<body>
+    <form method="POST">
+        {% csrf_token %}
+        <p>
+            <label>Название материала</label><br>
+            <input type="text" name="name" value="{{pack.name}}" />
+        </p>
+        <p>
+            <label>Единица измерения</label><br>
+            <input type="text" name="unit" value="{{pack.unit}}" />
+        </p>
+        <p>
+            <label>Поставщик</label><br>
+            <input type="text" name="supplier" value="{{pack.supplier}}" />
+        </p>
+        <p>
+            <label>Цена</label><br>
+            <input type="number" name="price" value="{{pack.price}}" />
+        </p>
+        <p>
+            <label>Комментарий</label><br>
+            <input type="text" name="note" value="{{pack.note}}" />
+        </p>
+        <input type="submit" value="Сохранить" >
+    </form>
+</body>
+</html>

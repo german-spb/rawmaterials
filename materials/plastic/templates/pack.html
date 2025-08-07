@@ -41,9 +41,9 @@
                 <tr>
                     <td>{{ pack.name }}</td>
                     <td>{{ pack.unit }}</td>
-                    <td>{{ glue.supplier }}</td>
-                    <td>{{ glue.price | intcomma }}</td>
-                    <td>{{ glue.note }}</td>
+                    <td>{{ pack.supplier }}</td>
+                    <td>{{ pack.price | intcomma }}</td>
+                    <td>{{ pack.note }}</td>
                     <td><a href="pack_edit/{{pack.id}}">Изменить</a> </td>
                 </tr>
             {% endfor %}

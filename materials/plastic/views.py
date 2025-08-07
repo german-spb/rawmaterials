@@ -460,3 +460,30 @@ def pack_form(request):
     form = PackForm()
     packs = Pack.objects.all()
     return render(request, 'pack_form.html', {'form':form, 'packs': packs})
+
+def pack_create(request):
+    name = request.POST.get('name')
+    unit = request.POST.get('unit')
+    supplier = request.POST.get('supplier')
+    price = request.POST.get('price')
+    note = request.POST.get('note')
+    pack = Pack(name=name, unit=unit,supplier=supplier, price=price, note=note)
+    pack.save()
+    # return HttpResponse('Записано')
+    return redirect(request.META.get('HTTP_REFERER'))
+
+def pack_edit(request, id):
+    try:
+        pack = Pack.objects.get(id=id)
+        if request.method == "POST":
+            pack.name = request.POST.get("name")
+            pack.unit = request.POST.get("unit")
+            pack.supplier = request.POST.get("supplier")
+            pack.price = request.POST.get("price")
+            pack.note = request.POST.get("note")
+            pack.save()
+            return redirect('pack')
+        else:
+            return render(request, "pack_edit.html", {"pack": pack})
+    except Pack.DoesNotExist:
+        return HttpResponseNotFound("<h2>Материал не найден!</h2>")
