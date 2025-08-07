@@ -72,6 +72,7 @@ urlpatterns = [
 
     path('pack/', views.pack, name='pack'),
     path('pack_form/', views.pack_form),
+    path('pack_form/pack_create/', views.pack_create),
     path('pack/pack_edit/<int:id>/', views.pack_edit),
     path('pack_form/pack_edit/<int:id>/', views.pack_edit),
 ]
