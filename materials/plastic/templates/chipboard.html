@@ -17,7 +17,7 @@
 	<a href="/chipboard_form">Создать</a>
 	<a href="#">Запасы</a>
 	<a href="#">Загрузить</a>
-	<a href="/chipboard_delete_form">Удалить</a>
+<!--	<a href="/chipboard_delete_form">Удалить</a>-->
 	<div class="animation start-home"></div>
 </nav>
 
@@ -44,7 +44,7 @@
                     <td>{{ chipboard.aqua }}</td>
                     <td>{{ chipboard.unit }}</td>
                     <td>{{ chipboard.price | intcomma }}</td>
-                    <td>id {{ chipboard.id }}</td>
+                    <td><a href="chipboard_edit/{{chipboard.id}}">Изменить</a></td>
                 </tr>
             {% endfor %}
             </tbody>
