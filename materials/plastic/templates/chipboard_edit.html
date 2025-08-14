@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактирование</title>
+</head>
+<body>
+    <form method="POST">
+        {% csrf_token %}
+        <p>
+            <label>Толщина плиты</label><br>
+            <input type="text" name="thickness" value="{{board.thickness}}" />
+        </p>
+        <p>
+            <label>Формат плиты</label><br>
+            <input type="text" name="format" value="{{board.format}}" />
+        </p>
+        <p>
+            <label>Сорт</label><br>
+            <input type="text" name="sort" value="{{board.sort}}" />
+        </p>
+        <p>
+            <label>Влагостойкость</label><br>
+            <input type="text" name="aqua" value="{{board.aqua}}" />
+        </p>
+        <p>
+            <label>Единица измерения</label><br>
+            <input type="text" name="unit" value="{{board.unit}}" />
+        </p>
+        <p>
+            <label>Цена</label><br>
+            <input step="0,01" name="price" value="{{board.price}}" />
+        </p>
+        <input type="submit" value="Сохранить" >
+    </form>
+</body>
+</html>
