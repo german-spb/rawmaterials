@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Служебные телефоны</title>
+    {% load static %}
+    <link rel="icon" href="{% static 'img/favicon.ico' %}" />
+    <link rel="stylesheet" href="{% static 'styles/phone.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/style.css' %}">
+</head>
+<body>
+<h1>Служебные телефоны</h1>
+<nav>
+	<a href="/">В начало</a>
+	<a href="/phone_form">Записать</a>
+
+	<div class="animation start-home"></div>
+</nav>
+
+    <form method="get" action="phone_search/">
+            {% csrf_token %}
+            <p>Поиск:<br> <input name="surname" /></p>
+            <input type="submit" value="Найти" />
+    </form>
+
+<div class="container">
+    <div class="row">
+        <table class="u-full-width" >
+            <thead>
+            <tr>
+                <th>Фамилия</th>
+                <th>Имя</th>
+                <th>Отчество</th>
+                <th>Отдел / Должность</th>
+                <th>Внутренний</th>
+                <th>Мобильный</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for phone  in phones  %}
+                <tr>
+                    <td>{{ phone.surname }}</td>
+                    <td>{{ phone.first_name }}</td>
+                    <td>{{ phone.second_name }}</td>
+                    <td>{{ phone.department }}</td>
+                    <td>{{ phone.phone }}</td>
+                    <td>{{ phone.phone_service }}</td>
+                    <td><a href="phone_edit/{{phone.id}}">Изменить</a></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+</body>
+</html>

@@ -75,4 +75,15 @@ urlpatterns = [
     path('pack_form/pack_create/', views.pack_create),
     path('pack/pack_edit/<int:id>/', views.pack_edit),
     path('pack_form/pack_edit/<int:id>/', views.pack_edit),
+
+    path('phone/', views.phone, name='phone'),
+    path('phone_form/', views.phone_form),
+    path('phone_form/phone_edit/<int:id>/', views.phone_edit),
+    path('phone_form/phone_create/', views.phone_create),
+    path('phone_form/phone_search/phone_edit/<int:id>/',views.phone_edit),
+    path('phone/phone_edit/<int:id>/', views.phone_edit),
+    path('phone/phone_form/phone_edit/<int:id>/', views.phone_edit),
+    path('phone/phone_search/phone_edit/<int:id>/', views.phone_edit),
+    path('phone/phone_search/', views.phone_search),
+    path('phone_form/phone_search/', views.phone_search),
 ]

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактирование телефонного справочника</title>
+</head>
+<body>
+    <form method="POST">
+        {% csrf_token %}
+        <p>
+            <label>Введите фамилию</label><br>
+            <input type="text" name="surname" value="{{phones.surname}}" />
+        </p>
+        <p>
+            <label>Введите имя</label><br>
+            <input type="text" name="first_name" value="{{phones.first_name}}" />
+        </p>
+         <p>
+            <label>Введите отчество</label><br>
+            <input type="text" name="second_name" value="{{phones.second_name}}" />
+        </p>
+        <p>
+            <label>Укажите отдел/должность</label><br>
+            <input type="text" name="department" value="{{phones.department}}" />
+        </p>
+         <p>
+            <label>Внутренний телефон</label><br>
+            <input type="text" name="phone" value="{{phones.phone}}" />
+        </p>
+         <p>
+            <label>Служебный мобильный</label><br>
+            <input type="text" name="phone_service" value="{{phones.phone_service}}" />
+        </p>
+        <input type="submit" value="Сохранить" >
+    </form>
+</body>
+</html>

@@ -101,3 +101,11 @@ class PackForm(forms.Form):
     price = forms.DecimalField(label='Цена', required=True)
     note = forms.CharField(widget=forms.Textarea, required=False)
 
+class PhoneForm(forms.Form):
+    surname = forms.CharField(label='Фамилия', required=True)
+    first_name = forms.CharField(label='Имя', required=True)
+    second_name = forms.CharField(label='Отчество', required=False)
+    department = forms.CharField(label='Отдел/Должность', required=True)
+    phone = forms.CharField(label='внутренний тел.', required=True)
+    phone_service = forms.CharField(label='служебный моб.', required=False)
+

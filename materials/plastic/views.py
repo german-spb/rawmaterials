@@ -3,8 +3,8 @@ from django.contrib import messages
 from django.http import HttpResponse, FileResponse, HttpResponseRedirect, HttpResponseNotFound
 from django_filters.conf import settings
 from django.contrib.auth.models import User
-from .forms import PlasticForm, StockForm, UploadFileForm, PlasticUpdateForm, ChipboardForm, GlueForm, PackForm
-from .models import Plastics, Stocks, Result, Chipboard, Glue, Pack
+from .forms import PlasticForm, StockForm, UploadFileForm, PlasticUpdateForm, ChipboardForm, GlueForm, PackForm, PhoneForm
+from .models import Plastics, Stocks, Result, Chipboard, Glue, Pack, Phone
 import pandas as pd
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
@@ -262,7 +262,7 @@ def upload_file(request):
                     )
                     # messages.success(request, f'Successfully imported files')
                 except Plastics.DoesNotExist:
-                    return HttpResponse(f'<h1>неверный код пластика: {row["plastic"]}</h1>')
+                    return HttpResponse(f'<h1>Код пластика {row["plastic"]} отсутствует в базе данных!</h1>')
         return redirect('home')
     else:
         form = UploadFileForm()
@@ -487,3 +487,49 @@ def pack_edit(request, id):
             return render(request, "pack_edit.html", {"pack": pack})
     except Pack.DoesNotExist:
         return HttpResponseNotFound("<h2>Материал не найден!</h2>")
+
+#=========================== Телефоны ==========================================
+
+def phone(request):
+    phones = Phone.objects.all()
+    return render(request, 'phone.html', {'phones': phones})
+
+def phone_form(request):
+    form = PhoneForm()
+    phones = Phone.objects.all()
+    return render(request, 'phone_form.html', {'form':form, 'phones': phones})
+
+def phone_create(request):
+    surname = request.POST.get('surname')
+    first_name = request.POST.get('first_name')
+    second_name = request.POST.get('second_name')
+    department = request.POST.get('department')
+    phone = request.POST.get('phone')
+    phone_service = request.POST.get('phone_service')
+    phones = Phone(surname=surname, first_name=first_name, second_name=second_name, department=department, phone=phone, phone_service=phone_service)
+    phones.save()
+    # return HttpResponse('Записано')
+    return redirect(request.META.get('HTTP_REFERER'))
+
+def phone_edit(request, id):
+    try:
+        phones = Phone.objects.get(id=id)
+        if request.method == "POST":
+            phones.surname = request.POST.get("surname")
+            phones.first_name = request.POST.get("first_name")
+            phones.second_name = request.POST.get("second_name")
+            phones.department = request.POST.get("department")
+            phones.phone = request.POST.get("phone")
+            phones.phone_service = request.POST.get("phone_service")
+            phones.save()
+            return redirect('phone')
+        else:
+            return render(request, "phone_edit.html", {"phones": phones})
+    except Pack.DoesNotExist:
+        return HttpResponseNotFound("<h2>Абонент!</h2>")
+
+def phone_search(request):
+    name = request.GET.get('surname')
+    first_name = request.GET.get('surname')
+    phones = Phone.objects.filter(surname__icontains=name)
+    return render(request, "phone.html", {"phones": phones})

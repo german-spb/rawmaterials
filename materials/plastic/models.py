@@ -72,3 +72,14 @@ class Pack(models.Model):
 
     class Meta:
         ordering = ['name',]
+
+class Phone(models.Model):
+    surname = models.CharField(max_length=100, blank=True, default='')
+    first_name = models.CharField(max_length=100, blank=True, default='')
+    second_name = models.CharField(max_length=100, blank=True, default='')
+    department = models.CharField(max_length=200, blank=True, default='')
+    phone = models.CharField(max_length=50,blank=True, default='')
+    phone_service = models.CharField(max_length=50, blank=True, default='')
+
+    class Meta:
+        ordering = ['surname',]
