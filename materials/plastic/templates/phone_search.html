@@ -5,7 +5,7 @@
     <title>Служебные телефоны</title>
     {% load static %}
     <link rel="icon" href="{% static 'img/favicon.ico' %}" />
-    <link rel="stylesheet" href="{% static 'styles/phone.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/phone_search.css' %}">
     <link rel="stylesheet" href="{% static 'styles/style.css' %}">
 </head>
 <body>
@@ -17,11 +17,11 @@
 	<div class="animation start-home"></div>
 </nav>
 
-    <form method="get" action="phone_search/">
-            {% csrf_token %}
-            <p>Поиск:<br> <input name="surname" /></p>
-            <input type="submit" value="Найти" />
-    </form>
+<!--    <form method="get" action="phone_search/">-->
+<!--            {% csrf_token %}-->
+<!--            <p>Поиск:<br> <input name="surname" /></p>-->
+<!--            <input type="submit" value="Найти" />-->
+<!--    </form>-->
 
 <div class="container">
     <div class="row">
@@ -51,6 +51,9 @@
             {% endfor %}
             </tbody>
         </table>
+
+        <a href="/phone" class="button">Сбросить</a>
+
     </div>
 </div>
 

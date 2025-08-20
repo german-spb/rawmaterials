@@ -532,4 +532,4 @@ def phone_search(request):
     name = request.GET.get('surname')
     first_name = request.GET.get('surname')
     phones = Phone.objects.filter(surname__icontains=name)
-    return render(request, "phone.html", {"phones": phones})
+    return render(request, "phone_search.html", {"phones": phones})
