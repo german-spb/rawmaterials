@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Клеевые материалы</title>
+    {% load static %}
+    {% load humanize %}
+    <link rel="icon" href="{% static 'img/favicon.ico' %}" />
+    <link rel="stylesheet" href="{% static 'styles/glue_search.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/style.css' %}">
+</head>
+<body>
+<h1>Клеевые материалы</h1>
+<nav>
+	<a href="/">В начало</a>
+	<a href="/glue_form">Записать</a>
+	<a href="#">КП</a>
+
+	<div class="animation start-home"></div>
+</nav>
+<div class="container">
+    <div class="row">
+        <table class="u-full-width" >
+            <thead>
+            <tr>
+                <th>Наименование</th>
+                <th>Основной</th>
+                <th>Тип</th>
+                <th>Поставщик</th>
+                <th>Упаковка</th>
+                <th>Цена с НДС</th>
+                <th>Линия №</th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for glue  in glues  %}
+                <tr>
+                    <td>{{ glue.name }}</td>
+                    <td style="text-align: center">{% if glue.main == True %}  <input type="checkbox" checked> {% else %}  {% endif %} </td>
+                    <td>{{ glue.type }}</td>
+                    <td>{{ glue.supplier }}</td>
+                    <td>{{ glue.pack }}</td>
+                    <td>{{ glue.price | intcomma }}</td>
+                    <td>{{ glue.line }}</td>
+                    <td><a href="glue_edit/{{glue.id}}">Изменить</a> | <a href="glue_delete_confirm/{{ glue.id }}">Удалить</a></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    <a href="/glue" class="button">Сбросить</a>
+    </div>
+</div>
+
+</body>
+</html>

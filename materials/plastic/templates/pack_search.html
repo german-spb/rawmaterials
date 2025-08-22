@@ -6,7 +6,7 @@
     {% load static %}
     {% load humanize %}
     <link rel="icon" href="{% static 'img/favicon.ico' %}" />
-    <link rel="stylesheet" href="{% static 'styles/pack.css' %}">
+    <link rel="stylesheet" href="{% static 'styles/pack_search.css' %}">
     <link rel="stylesheet" href="{% static 'styles/style.css' %}">
 </head>
 <body>
@@ -16,12 +16,6 @@
 	<a href="/pack_form">Записать</a>
 	<div class="animation start-home"></div>
 </nav>
-
-    <form method="get" action="pack_search/">
-            {% csrf_token %}
-            <p>Поиск по названию:<br> <input name="name" /></p>
-            <input type="submit" value="Найти" />
-    </form>
 
 <div class="container">
     <div class="row">
@@ -50,6 +44,7 @@
             </tbody>
         </table>
 
+        <a href="/pack" class="button">Сбросить</a>
     </div>
 </div>
 

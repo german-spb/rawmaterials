@@ -131,6 +131,7 @@ def list_quantity(request):
         return HttpResponse('<h1>Таблица остатков не загружена</h1>')
 
 
+
 # -------------------- Запись количества ----------------
 
 def stock(requests):
@@ -195,36 +196,47 @@ def input_update_code_fields(request):
 def search(request):
     return render(request, "search_form.html")
 
+# def search_plastic(request):
+#     form = PlasticUpdateForm()
+#     code_sbk = request.GET.get('code_sbk')
+#     plastics_object = Plastics.objects.filter(code_sbk__iexact = code_sbk)
+#     plastics = [{
+#         'code_sbk': c.code_sbk,
+#         'name_sbk': c.name_sbk,
+#         'code_contractor': c.code_contractor,
+#         'name_contractor': c.name_contractor,
+#         'price': c.price,
+#         'note': c.note} for c in plastics_object]
+#     try:
+#         code = Plastics.objects.get(code_sbk__iexact  = code_sbk)
+#         stocks_object = Stocks.objects.filter(plastic=code).order_by('-id')[:1]
+#         stocks = [{
+#             'plastic': c.plastic,
+#             'quantity_3050': c.quantity_3050,
+#             'quantity_2440': c.quantity_2440,
+#             'quantity_4200': c.quantity_4200,
+#             'quantity_rol': c.quantity_rol,
+#             'total': c.quantity_3050 + c.quantity_2440 + c.quantity_4200} for c in stocks_object]
+#         context = {
+#             'stocks': stocks,
+#             'plastics': plastics,
+#             'form' : form
+#         }
+#         return render(request, 'search.html', context)
+#     except Plastics.DoesNotExist:
+#         return HttpResponse('<h1>Запись не найдена или неверный код пластика</h1>')
+
 def search_plastic(request):
     form = PlasticUpdateForm()
     code_sbk = request.GET.get('code_sbk')
-    plastics_object = Plastics.objects.filter(code_sbk__iexact = code_sbk)
-    plastics = [{
-        'code_sbk': c.code_sbk,
-        'name_sbk': c.name_sbk,
-        'code_contractor': c.code_contractor,
-        'name_contractor': c.name_contractor,
-        'price': c.price,
-        'note': c.note} for c in plastics_object]
+    plastics = Plastics.objects.filter(code_sbk__iexact = code_sbk)
+    dt = Stocks.objects.all().values('created_at').last()['created_at'].strftime("%d-%m-%Y  %H:%M")
     try:
         code = Plastics.objects.get(code_sbk__iexact  = code_sbk)
-        stocks_object = Stocks.objects.filter(plastic=code).order_by('-id')[:1]
-        stocks = [{
-            'plastic': c.plastic,
-            'quantity_3050': c.quantity_3050,
-            'quantity_2440': c.quantity_2440,
-            'quantity_4200': c.quantity_4200,
-            'quantity_rol': c.quantity_rol,
-            'total': c.quantity_3050 + c.quantity_2440 + c.quantity_4200} for c in stocks_object]
-        context = {
-            'stocks': stocks,
-            'plastics': plastics,
-            'form' : form
-        }
-        return render(request, 'search.html', context)
+        stocks = Stocks.objects.filter(plastic=code).order_by('-id')[:1]
+        return render(request, 'search.html', {'stocks': stocks, 'plastics': plastics, 'form' : form, 'dt': dt })
     except Plastics.DoesNotExist:
         return HttpResponse('<h1>Запись не найдена или неверный код пластика</h1>')
-
 
 # ---------------- Удаление ------------------
 
@@ -374,6 +386,23 @@ def chipboard_create(request):
     # return HttpResponse('Записано')
     return redirect(request.META.get('HTTP_REFERER'))
 
+def chipboard_edit(request, id):
+    try:
+        board = Chipboard.objects.get(id=id)
+        if request.method == "POST":
+            board.name = request.POST.get("name")
+            board.format = request.POST.get("format")
+            board.sort = request.POST.get("sort")
+            board.aqua = request.POST.get("aqua")
+            board.unit = request.POST.get("unit")
+            board.price = request.POST.get("price")
+            board.save()
+            return redirect('chipboard')
+        else:
+            return render(request, "chipboard_edit.html", {"board": board})
+    except Pack.DoesNotExist:
+        return HttpResponseNotFound("<h2>Материал не найден!</h2>")
+
 def chipboard_delete_form(request):
     return render(request, 'chipboard_delete.html')
 
@@ -437,7 +466,7 @@ def glue_edit(request, id):
 def search_glue(request):
     name = request.GET.get("name")
     glues = Glue.objects.filter(name__icontains=name)
-    return render(request, "glue.html", {"glues": glues})
+    return render(request, "glue_search.html", {"glues": glues})
 
 
 
@@ -487,6 +516,11 @@ def pack_edit(request, id):
             return render(request, "pack_edit.html", {"pack": pack})
     except Pack.DoesNotExist:
         return HttpResponseNotFound("<h2>Материал не найден!</h2>")
+
+def pack_search(request):
+    name = request.GET.get('name')
+    packs = Pack.objects.filter(name__icontains=name)
+    return render(request, "pack_search.html", {"packs": packs})
 
 #=========================== Телефоны ==========================================
 

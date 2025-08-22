@@ -52,6 +52,8 @@ urlpatterns = [
     path('download/<str:filename>/', views.download_file, name='download_file'),
 
     path('chipboard/', views.chipboard, name='chipboard'),
+    path('chipboard/chipboard_edit/<int:id>/', views.chipboard_edit),
+    path('chipboard_form/chipboard_edit/<int:id>/', views.chipboard_edit),
     path('chipboard_form/', views.chipboard_form),
     path('chipboard_form/chipboard_create/', views.chipboard_create),
     path('chipboard_delete_form/', views.chipboard_delete_form),
@@ -71,9 +73,13 @@ urlpatterns = [
     path('glue_form/search_glue/', views.search_glue),
 
     path('pack/', views.pack, name='pack'),
+    path('pack/pack_search/', views.pack_search),
+    path('pack_form/pack_search/', views.pack_search),
     path('pack_form/', views.pack_form),
     path('pack_form/pack_create/', views.pack_create),
     path('pack/pack_edit/<int:id>/', views.pack_edit),
+    path('pack_form/pack_search/pack_edit/<int:id>/', views.pack_edit),
+    path('pack/pack_search/pack_edit/<int:id>/', views.pack_edit),
     path('pack_form/pack_edit/<int:id>/', views.pack_edit),
 
     path('phone/', views.phone, name='phone'),

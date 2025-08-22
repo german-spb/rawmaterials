@@ -87,6 +87,16 @@ h1 {
 	font-family: 'Cherry Swash', cursive;
 }
 
+form {
+    transform: translate(300px);
+    margin: 0 auto;
+    bottom: 0px;
+    width: 100%;
+    color: #ecf0f1;
+    font-family: 'Cherry Swash',cursive;
+    font-size: 16px;
+}
+
 .button {
 display: inline-block;
 padding: 12px 20px;
