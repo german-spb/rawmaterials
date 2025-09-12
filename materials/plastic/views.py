@@ -3,8 +3,8 @@ from django.contrib import messages
 from django.http import HttpResponse, FileResponse, HttpResponseRedirect, HttpResponseNotFound
 from django_filters.conf import settings
 from django.contrib.auth.models import User
-from .forms import PlasticForm, StockForm, UploadFileForm, PlasticUpdateForm, ChipboardForm, GlueForm, PackForm, PhoneForm
-from .models import Plastics, Stocks, Result, Chipboard, Glue, Pack, Phone
+from .forms import PlasticForm, StockForm, UploadFileForm, PlasticUpdateForm, ChipboardForm, GlueForm, PackForm, PhoneForm, DocumentForm
+from .models import Plastics, Stocks, Result, Chipboard, Glue, Pack, Phone, Documents
 import pandas as pd
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
@@ -445,12 +445,12 @@ def glue_edit(request, id):
         if request.method == "POST":
             glue.name = request.POST.get("name")
 
-            print(glue)
+
             if glue.main == 'on':
                 glue.main = True
             else:
                 glue.main = False
-            print(glue.main)
+
             glue.type = request.POST.get("type")
             glue.supplier = request.POST.get("supplier")
             glue.pack = request.POST.get("pack")
@@ -465,7 +465,7 @@ def glue_edit(request, id):
 
 def search_glue(request):
     name = request.GET.get("name")
-    glues = Glue.objects.filter(name__icontains=name)
+    glues = Glue.objects.filter(name__icontains=name) | Glue.objects.filter(supplier__icontains=name)
     return render(request, "glue_search.html", {"glues": glues})
 
 

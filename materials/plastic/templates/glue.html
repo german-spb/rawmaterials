@@ -31,7 +31,7 @@
             <thead>
             <tr>
                 <th>Наименование</th>
-                <th>Основной</th>
+<!--                <th>Основной</th>-->
                 <th>Тип</th>
                 <th>Поставщик</th>
                 <th>Упаковка</th>
@@ -44,13 +44,13 @@
             {% for glue  in glues  %}
                 <tr>
                     <td>{{ glue.name }}</td>
-                    <td style="text-align: center">{% if glue.main == True %}  <input type="checkbox" checked> {% else %}  {% endif %} </td>
+<!--                    <td style="text-align: center">{% if glue.main == True %}  <input type="checkbox" checked> {% else %}  {% endif %} </td>-->
                     <td>{{ glue.type }}</td>
                     <td>{{ glue.supplier }}</td>
                     <td>{{ glue.pack }}</td>
                     <td>{{ glue.price | intcomma }}</td>
                     <td>{{ glue.line }}</td>
-                    <td><a href="glue_edit/{{glue.id}}">Изменить</a> | <a href="glue_delete_confirm/{{ glue.id }}">Удалить</a></td>
+                    <td><a href="glue_edit/{{glue.id}}">Изм.</a> | <a href="glue_delete_confirm/{{ glue.id }}">ТТХ</a></td>
                 </tr>
             {% endfor %}
             </tbody>

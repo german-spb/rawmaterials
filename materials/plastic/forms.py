@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import inlineformset_factory
-from .models import Plastics, Stocks, Chipboard, Glue
+from .models import Plastics, Stocks, Chipboard, Glue, Documents
 from django.forms.models import ModelForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
@@ -108,4 +108,15 @@ class PhoneForm(forms.Form):
     department = forms.CharField(label='Отдел/Должность', required=True)
     phone = forms.CharField(label='внутренний тел.', required=True)
     phone_service = forms.CharField(label='служебный моб.', required=False)
+
+class DocumentForm (forms.ModelForm):
+    class Meta:
+        model = Documents
+        fields = '__all__'
+        labels = {
+            'title': 'Название'
+        }
+
+
+
 

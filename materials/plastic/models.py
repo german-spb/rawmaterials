@@ -1,6 +1,8 @@
 from django.db import models
 from django.contrib.auth.models import AbstractBaseUser, BaseUserManager, PermissionsMixin, User
 from django.utils.timezone import now
+from numpy.lib.recfunctions import require_fields
+
 
 class Plastics(models.Model):
     code_sbk = models.CharField(max_length=20, unique=True)
@@ -62,6 +64,12 @@ class Glue(models.Model):
 
     def __str__(self):
         return self.line
+
+class Documents(models.Model):
+    title = models.CharField(max_length=300)
+    document = models.FileField(upload_to='documents/')
+    glue = models.OneToOneField(Glue, on_delete=models.CASCADE, primary_key=True)
+
 
 class Pack(models.Model):
     name = models.CharField(max_length=200)

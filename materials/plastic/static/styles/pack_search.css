@@ -116,8 +116,9 @@ text-align: center;
 }
 
 .button {
+  margin-top: 10px;
   position: absolute;
-  top: 40%;
+  top: auto;
   left: 50%;
-  transform: translate(-50%, -50%);
+
 }
