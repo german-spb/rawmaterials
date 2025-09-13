@@ -424,16 +424,12 @@ def glue_form(request):
 
 def glue_create(request):
     name = request.POST.get('name')
-    main = request.POST.get('main')
-    if main == 'on':
-        main = True
-    else: main = False
     type = request.POST.get('type')
     supplier = request.POST.get('supplier')
     pack = request.POST.get('pack')
     price = request.POST.get('price')
     line = request.POST.get('line')
-    glued = Glue(name=name, main=main, type=type, supplier=supplier, pack=pack, price=price, line=line)
+    glued = Glue(name=name, type=type, supplier=supplier, pack=pack, price=price, line=line)
     glued.save()
     # return HttpResponse('Записано')
     return redirect(request.META.get('HTTP_REFERER'))
@@ -468,14 +464,25 @@ def search_glue(request):
     glues = Glue.objects.filter(name__icontains=name) | Glue.objects.filter(supplier__icontains=name)
     return render(request, "glue_search.html", {"glues": glues})
 
+def glue_documents(request):
+   # doc = Documents.objects.get()
+   if request.method == 'POST':
+        form = DocumentForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            file_obj = form.instance
+            return render(request, 'glue_document.html', {'form': form, 'file_obj':file_obj})
+   else:
+        form = DocumentForm()
+   return render(request, 'glue_document.html', {'form': form})
 
 
 def glue_delete_confirm(request, id):
     glue = Glue.objects.get(id=id)
     return render(request, 'glue_delete_confirm.html', {'glue':glue})
 
-def glue_delete(request, id):
-    glue = Glue.objects.get(id=id)
+def glue_delete(request):
+    glue = Glue.objects.all()
     glue.delete()
     return redirect('glue')
 

@@ -52,7 +52,6 @@ class Chipboard(models.Model):
 
 class Glue(models.Model):
     name = models.CharField(max_length=200)
-    main = models.BooleanField()
     type = models.CharField(max_length=50)
     supplier = models.CharField(max_length=150)
     pack = models.CharField(max_length=100)
@@ -63,12 +62,13 @@ class Glue(models.Model):
         ordering = ['supplier',]
 
     def __str__(self):
-        return self.line
+        return self.name
 
 class Documents(models.Model):
+    glue = models.ForeignKey(Glue, on_delete=models.CASCADE)
     title = models.CharField(max_length=300)
     document = models.FileField(upload_to='documents/')
-    glue = models.OneToOneField(Glue, on_delete=models.CASCADE, primary_key=True)
+
 
 
 class Pack(models.Model):
