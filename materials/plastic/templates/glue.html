@@ -50,7 +50,7 @@
                     <td>{{ glue.pack }}</td>
                     <td>{{ glue.price | intcomma }}</td>
                     <td>{{ glue.line }}</td>
-                    <td><a href="glue_edit/{{glue.id}}">Изм.</a> | <a href="glue_documents/">ТТХ</a></td>
+                    <td><a href="glue_edit/{{glue.id}}">Изм.</a> | <a href="glue_documents/{{ glue.id }}">ТТХ</a></td>
                 </tr>
             {% endfor %}
             </tbody>

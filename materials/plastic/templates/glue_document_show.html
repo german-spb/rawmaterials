@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    {% load static %}
+</head>
+<body>
+ <h2>{{ document.title }}</h2>
+<!-- <p><embed src="{% url 'glue_document_show' filename={{ document.title }}  %}" type="application/pdf" width="100%" height="600px"></p>-->
+ <p> <object data="{% url 'glue_document_show' filename={{ document.title }}  %}" type="application/pdf" width="100%" height="600px"></object></p>
+</body>
+</html>

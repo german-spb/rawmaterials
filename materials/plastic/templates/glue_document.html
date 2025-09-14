@@ -3,18 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>ТТ Характеристики</title>
+    {% load static %}
 </head>
 <body>
-<form method="post" enctype="multipart/form-data">
-  {% csrf_token %}
-   {{ form.as_p }}
-  <button type="submit">Upload</button>
-</form>
-
-{% if file_obj %}
-<small>Успешно загружено: {{file_obj.title}}</small>
-{% endif %}
-<h3 align="center">DOCUMENTS GLUE</h3>
+<h3 align="center">Документация на  {{ glue.name }}</h3>
 <!--    <nav class="top-menu">-->
 <!--      <ul class="menu-main">-->
 <!--        <li><a href="/documents" >Дом</a></li>-->
@@ -26,13 +18,20 @@
 <!--    </nav>-->
  <table class="u-full-width" border="1" cellpadding="10" align="center">
             <tbody>
-            {% for doc in glues_documents %}
+{% for glue in glues_documents %}
                 <tr>
-                    <td>{{ doc.title }}</td>
-                    <td><a href="{{ doc.document.url }}"></a></td>
+                    <td>{{ glue.title }}</td>
+                    <td><a href="{{ glue.document.url }}">Открыть</a></td>
+                    <td><a href="{% url 'delete_document' glue.id %}">Удалить</a></td>
                </tr>
-            {% endfor %}
+{% endfor %}<
             </tbody>
  </table>
+<h3>Загрузить документ</h3>
+<form method="post" enctype="multipart/form-data">
+  {% csrf_token %}
+   {{ form.as_p }}
+  <button type="submit">Upload</button>
+</form>
 </body>
 </html>

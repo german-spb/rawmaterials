@@ -114,7 +114,8 @@ class DocumentForm (forms.ModelForm):
         model = Documents
         fields = '__all__'
         labels = {
-            'title': 'Название'
+            'glue' : 'Выбрать клей',
+            'title': 'Название документа'
         }
 
 

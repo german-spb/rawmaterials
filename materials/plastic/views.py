@@ -464,18 +464,30 @@ def search_glue(request):
     glues = Glue.objects.filter(name__icontains=name) | Glue.objects.filter(supplier__icontains=name)
     return render(request, "glue_search.html", {"glues": glues})
 
-def glue_documents(request):
-   # doc = Documents.objects.get()
-   if request.method == 'POST':
+def glue_documents(request, id):
+    glue = Glue.objects.get(id=id)
+    glues_documents = glue.documents_set.all()
+    if request.method == 'POST':
         form = DocumentForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            file_obj = form.instance
-            return render(request, 'glue_document.html', {'form': form, 'file_obj':file_obj})
-   else:
+            # file_obj = form.instance
+            return render(request, 'glue_document.html', {'form': form, 'glues_documents':glues_documents, 'glue':glue})
+    else:
         form = DocumentForm()
-   return render(request, 'glue_document.html', {'form': form})
+    return render(request, 'glue_document.html', {'form': form, 'glues_documents': glues_documents, 'glue':glue})
 
+# def glue_document_show(request, filename):
+#     document = Documents.objects.get(title=filename)
+#     return render (request,'glue_document_show.html', {'document': document})
+
+def glue_document_show(request, filename):
+    return FileResponse(open(f'documents/{filename}', 'rb'), content_type='application/pdf')
+
+def glue_delete_document(request, id):
+    document_delete = Documents.objects.get(id=id)
+    document_delete.delete()
+    return redirect('glue')
 
 def glue_delete_confirm(request, id):
     glue = Glue.objects.get(id=id)
