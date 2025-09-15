@@ -69,6 +69,10 @@ class Documents(models.Model):
     title = models.CharField(max_length=300)
     document = models.FileField(upload_to='documents/')
 
+class NoteGlue(models.Model):
+    glue = models.ForeignKey(Glue, on_delete=models.CASCADE)
+    note = models.TextField(blank=True, default='')
+    created_at = models.DateTimeField(auto_now_add=True, editable=False)
 
 
 class Pack(models.Model):

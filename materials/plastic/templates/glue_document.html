@@ -4,27 +4,26 @@
     <meta charset="UTF-8">
     <title>ТТ Характеристики</title>
     {% load static %}
+    <link href="{% static 'styles/glue_documents.css' %}" rel="stylesheet"/>
 </head>
 <body>
-<h3 align="center">Документация на  {{ glue.name }}</h3>
-<!--    <nav class="top-menu">-->
-<!--      <ul class="menu-main">-->
-<!--        <li><a href="/documents" >Дом</a></li>-->
-<!--        <li><a href="/documents_german" >Герман</a></li>-->
-<!--        <li><a href="/documents_irina" class="current">Ирина</a></li>-->
-<!--        <li><a href="/documents_mark">Марк</a></li>-->
-<!--        <li><a href="/">В начало</a></li>-->
-<!--      </ul>-->
-<!--    </nav>-->
- <table class="u-full-width" border="1" cellpadding="10" align="center">
+<h3 align="center" >Документация на {{glue.name}}</h3>
+    <nav class="top-menu">
+      <ul class="menu-main">
+        <li><a href="/">В начало</a></li>
+        <li><a href="/glue" >Назад</a></li>
+        <li><a href="#" class="current">Примечание к {{glue.name}}</a></li>
+      </ul>
+    </nav>
+<table class="u-full-width" border="1" cellpadding="10" align="center">
             <tbody>
 {% for glue in glues_documents %}
                 <tr>
                     <td>{{ glue.title }}</td>
-                    <td><a href="{{ glue.document.url }}">Открыть</a></td>
-                    <td><a href="{% url 'delete_document' glue.id %}">Удалить</a></td>
+                    <td><a class='mylink-open' href="{{ glue.document.url }}">Открыть</a></td>
+                    <td><a class='mylink' href="{% url 'delete_document' glue.id %}">Удалить</a></td>
                </tr>
-{% endfor %}<
+{% endfor %}
             </tbody>
  </table>
 <h3>Загрузить документ</h3>

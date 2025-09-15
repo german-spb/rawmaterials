@@ -471,15 +471,11 @@ def glue_documents(request, id):
         form = DocumentForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            # file_obj = form.instance
             return render(request, 'glue_document.html', {'form': form, 'glues_documents':glues_documents, 'glue':glue})
     else:
         form = DocumentForm()
     return render(request, 'glue_document.html', {'form': form, 'glues_documents': glues_documents, 'glue':glue})
 
-# def glue_document_show(request, filename):
-#     document = Documents.objects.get(title=filename)
-#     return render (request,'glue_document_show.html', {'document': document})
 
 def glue_document_show(request, filename):
     return FileResponse(open(f'documents/{filename}', 'rb'), content_type='application/pdf')
