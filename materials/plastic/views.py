@@ -130,7 +130,10 @@ def list_quantity(request):
     except:
         return HttpResponse('<h1>Таблица остатков не загружена</h1>')
 
-
+def filter_plastic(request):
+    name = request.GET.get("name")
+    stocks = Stocks.objects.filter(plastic__code_sbk__icontains=name)
+    return render(request, "search_list_quantity.html", {"stocks": stocks})
 
 # -------------------- Запись количества ----------------
 

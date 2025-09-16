@@ -34,6 +34,7 @@ urlpatterns = [
     path('list_code/', views.list_plastic ),
     path('list_result/', views.list_result ),
     path('total/', views.list_quantity ),
+    path('total/filter_plastic/', views.filter_plastic),
     path('input/', views.stock),
     path('input/stock/', views.input_stock),
     path('search/', views.search, name='search'),
