@@ -132,8 +132,18 @@ def list_quantity(request):
 
 def filter_plastic(request):
     name = request.GET.get("name")
-    stocks = Stocks.objects.filter(plastic__code_sbk__icontains=name)
-    return render(request, "search_list_quantity.html", {"stocks": stocks})
+    stocks_object = Stocks.objects.filter(plastic__code_sbk__icontains=name)
+    stocks = [{
+        'plastic': c.plastic,
+        'quantity_3050': int(c.quantity_3050 / 4.026),
+        'quantity_2440': c.quantity_2440,
+        'quantity_4200': c.quantity_4200,
+        'quantity_rol': c.quantity_rol,
+        'total': c.quantity_3050 + c.quantity_2440 + c.quantity_4200} for c in stocks_object]
+    print(type(stocks[0]['quantity_3050']))
+    dt = stocks_object.values('created_at').last()['created_at'].strftime("%d-%m-%Y  %H:%M")
+
+    return render(request, "search_list_quantity.html", {"stocks": stocks, "dt": dt})
 
 # -------------------- Запись количества ----------------
 
@@ -199,35 +209,6 @@ def input_update_code_fields(request):
 def search(request):
     return render(request, "search_form.html")
 
-# def search_plastic(request):
-#     form = PlasticUpdateForm()
-#     code_sbk = request.GET.get('code_sbk')
-#     plastics_object = Plastics.objects.filter(code_sbk__iexact = code_sbk)
-#     plastics = [{
-#         'code_sbk': c.code_sbk,
-#         'name_sbk': c.name_sbk,
-#         'code_contractor': c.code_contractor,
-#         'name_contractor': c.name_contractor,
-#         'price': c.price,
-#         'note': c.note} for c in plastics_object]
-#     try:
-#         code = Plastics.objects.get(code_sbk__iexact  = code_sbk)
-#         stocks_object = Stocks.objects.filter(plastic=code).order_by('-id')[:1]
-#         stocks = [{
-#             'plastic': c.plastic,
-#             'quantity_3050': c.quantity_3050,
-#             'quantity_2440': c.quantity_2440,
-#             'quantity_4200': c.quantity_4200,
-#             'quantity_rol': c.quantity_rol,
-#             'total': c.quantity_3050 + c.quantity_2440 + c.quantity_4200} for c in stocks_object]
-#         context = {
-#             'stocks': stocks,
-#             'plastics': plastics,
-#             'form' : form
-#         }
-#         return render(request, 'search.html', context)
-#     except Plastics.DoesNotExist:
-#         return HttpResponse('<h1>Запись не найдена или неверный код пластика</h1>')
 
 def search_plastic(request):
     form = PlasticUpdateForm()
