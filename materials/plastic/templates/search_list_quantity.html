@@ -16,8 +16,15 @@
             <p>Фильтр:<br> <input name="name" /></p>
             <input type="submit" value="Найти" />
     </form>
-
-        <table class="u-full-width">
+<style>
+  thead {
+    position: sticky;
+    top: 0;
+  background-color: #5ec167; /* Чтобы заголовки были четко видны против контента */
+  }
+</style>
+<div style="max-height: 600px; overflow: auto;">
+        <table>
             <caption><h2> Количество на складе: &nbsp;&nbsp;&nbsp;&nbsp; {{ dt }} </h2></caption>
             <thead>
             <tr>
@@ -39,6 +46,7 @@
                 <th>м.п.</th>
             </tr>
             </thead>
+
             <tbody>
             {% for stock  in stocks  %}
                 <tr>
@@ -56,6 +64,6 @@
             {% endfor %}
             </tbody>
         </table>
-
+</div>
 </body>
 </html>
