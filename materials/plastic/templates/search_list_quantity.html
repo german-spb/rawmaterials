@@ -16,16 +16,27 @@
             <p>Фильтр:<br> <input name="name" /></p>
             <input type="submit" value="Найти" />
     </form>
-        <table class="u-full-width" >
+
+        <table class="u-full-width">
             <caption><h2> Количество на складе: &nbsp;&nbsp;&nbsp;&nbsp; {{ dt }} </h2></caption>
             <thead>
             <tr>
-                <th >Код СБК</th>
-                <th>Листы 3050, м2</th>
-                <th>Листы 2440, м2</th>
-                <th>Листы 4200, м2</th>
-                <th>Рулоны, м2</th>
-                <th>Всего листов, м2</th>
+                <th rowspan="2">Код СБК</th>
+                <th colspan="2">3050</th>
+                <th colspan="2">2440</th>
+                <th colspan="2">4200</th>
+                <th colspan="2">Рулоны</th>
+                <th rowspan="2">Всего листов, м2</th>
+            </tr>
+            <tr>
+                <th>м2</th>
+                <th>лист</th>
+                <th>м2</th>
+                <th>лист</th>
+                <th>м2</th>
+                <th>лист</th>
+                <th>м2</th>
+                <th>м.п.</th>
             </tr>
             </thead>
             <tbody>
@@ -33,9 +44,13 @@
                 <tr>
                     <td>{{ stock.plastic }}</td>
                     <td>{{ stock.quantity_3050 }}</td>
+                    <td>{{ stock.quantity_3050_sheet }}</td>
                     <td>{{ stock.quantity_2440 }}</td>
+                    <td>{{ stock.quantity_2440_sheet }}</td>
                     <td>{{ stock.quantity_4200 }}</td>
-                    <td>{{ stock.quantity_rol }}</td>
+                    <td>{{ stock.quantity_4200_sheet }}</td>
+                    <td>{{ stock.quantity_rol  }}</td>
+                    <td>{{ stock.quantity_rol_m }}</td>
                     <td>{{ stock.total }}</td>
                 </tr>
             {% endfor %}
