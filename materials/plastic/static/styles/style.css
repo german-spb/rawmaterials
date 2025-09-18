@@ -154,6 +154,11 @@ body {
      text-align:center;
     }
 
+    h2 {
+    margin-top: 0px;
+    margin-bottom: 0px;
+    }
+
     thead {
     position: sticky;
     top: 0;
@@ -179,10 +184,10 @@ cursor: pointer;
 text-align: center;
 }
 
-.button {
-  position: absolute;
-  top: 20%;
-  left: 8%;
-  transform: translate(-50%, -50%);
+.but {
+ display: flex;
+ justify-content: center;
+ align-items: center;
 }
+
 

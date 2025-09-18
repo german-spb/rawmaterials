@@ -7,12 +7,12 @@
 </head>
 <body>
 {% load static %}
-{% include 'plastic.html' %}
+<!--{% include 'plastic.html' %}-->
 <link rel="stylesheet" href="{% static 'styles/style.css' %}">
 
-        <a href="/total" class="button">Сбросить</a>
 
-<div style="max-height: 600px; overflow: auto;">
+
+<div style="max-height: 300px; overflow: auto;">
         <table>
             <caption><h2> Количество на складе: &nbsp;&nbsp;&nbsp;&nbsp; {{ dt }} </h2></caption>
             <thead>
@@ -52,7 +52,12 @@
                 </tr>
             {% endfor %}
             </tbody>
+
         </table>
+
+</div>
+<div class="but">
+<a href="/total" class="button">Сбросить</a>
 </div>
 </body>
 </html>
