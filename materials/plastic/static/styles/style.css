@@ -154,5 +154,35 @@ body {
      text-align:center;
     }
 
+    thead {
+    position: sticky;
+    top: 0;
+    background-color: #5ec167; /* Чтобы заголовки были четко видны против контента */
+    }
 
+
+.button {
+display: inline-block;
+padding: 12px 20px;
+background: linear-gradient(to right, #3498db, #2980b9);
+color: white;
+text-decoration: none;
+border-radius: 50px; /* Скругленные углы */
+font-family: 'Segoe UI', sans-serif;
+font-weight: 400;
+text-transform: uppercase;
+letter-spacing: 1px;
+box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+transition: all 0.3s ease;
+border: none;
+cursor: pointer;
+text-align: center;
+}
+
+.button {
+  position: absolute;
+  top: 20%;
+  left: 8%;
+  transform: translate(-50%, -50%);
+}
 

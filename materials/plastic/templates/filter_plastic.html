@@ -10,12 +10,7 @@
 {% include 'plastic.html' %}
 <link rel="stylesheet" href="{% static 'styles/style.css' %}">
 
-
-    <form method="get" action="filter_plastic/">
-            {% csrf_token %}
-            <p>Фильтр:<br> <input name="name" /></p>
-            <input type="submit" value="Найти" />
-    </form>
+        <a href="/total" class="button">Сбросить</a>
 
 <div style="max-height: 600px; overflow: auto;">
         <table>
