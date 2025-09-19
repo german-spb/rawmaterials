@@ -1,5 +1,6 @@
 body {
- background-color: #F1F6FF
+ background-color: #F1F6FF;
+ justify-content: center;
  }
 
 @import url('https://fonts.googleapis.com/css?family=PT+Sans');
@@ -79,3 +80,4 @@ h3 { color: green; }
 
 .mylink-open {color:blue; font-size:12pt;}
 .mylink-open:hover {color:green; font-size:13pt;}
+

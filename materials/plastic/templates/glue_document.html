@@ -5,6 +5,16 @@
     <title>ТТ Характеристики</title>
     {% load static %}
     <link href="{% static 'styles/glue_documents.css' %}" rel="stylesheet"/>
+    <style>
+   .brd { // Создаём класс
+    border: 4px double black; /* Параметры границы */
+    background: #fc3; /* Цвет фона */
+    padding: 10px; /* Поля вокруг текста */
+    margin-top: 20px;
+    width: 60%;
+    margin: 20px auto;
+   }
+   </style>
 </head>
 <body>
 <h3 align="center" >Документация на {{glue.name}}</h3>
@@ -22,10 +32,15 @@
                     <td>{{ glue.title }}</td>
                     <td><a class='mylink-open' href="{{ glue.document.url }}">Открыть</a></td>
                     <td><a class='mylink' href="{% url 'delete_document' glue.id %}">Удалить</a></td>
-               </tr>
+                </tr>
+
+
 {% endfor %}
             </tbody>
+
  </table>
+
+ <div class="brd"></div>
 <h3>Загрузить документ</h3>
 <form method="post" enctype="multipart/form-data">
   {% csrf_token %}
