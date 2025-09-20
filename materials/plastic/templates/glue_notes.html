@@ -17,33 +17,43 @@
    </style>
 </head>
 <body>
-<h3 align="center" >Документация на {{glue.name}}</h3>
+<h3 align="center" >Примечания {{glue.name}}</h3>
     <nav class="top-menu">
       <ul class="menu-main">
         <li><a href="/">В начало</a></li>
-        <li><a href="/glue" >Назад</a></li>
-        <li><a href="/glue/glue_documents/{{glue.id}}/glue_notes" class="current">Примечание к {{glue.name}}</a></li>
+        <li><a href="/glue" class="current">Назад</a></li>
       </ul>
     </nav>
 <table class="u-full-width" border="1" cellpadding="10" align="center">
             <tbody>
-            {% for glue in glues_documents %}
+{% for glue in glues_documents %}
                 <tr>
                     <td>{{ glue.title }}</td>
                     <td><a class='mylink-open' href="{{ glue.document.url }}">Открыть</a></td>
                     <td><a class='mylink' href="{% url 'delete_document' glue.id %}">Удалить</a></td>
                 </tr>
+{% endfor %}
+            </tbody>
+ </table>
+<table class="u-full-width" border="1" cellpadding="10" align="center">
+            <tbody>
+            {% for note in glues_note %}
+                <tr>
+                    <td>{{ note.created_at | date:"d.m.Y"}}</td>
+                    <td>{{ note.note }}</td>
+                </tr>
             {% endfor %}
             </tbody>
  </table>
+
  <div class="brd"></div>
-<h3>Загрузить документ</h3>
-<div class="form-container">
-<form method="post" enctype="multipart/form-data">
-  {% csrf_token %}
-   {{ form.as_p }}
-  <button type="submit">Upload</button>
-</form>
-</div>
+ <h3>Добавить примечание</h3>
+    <div class="form-container">
+    <form method="post" action="glue_notes_create/">
+        {% csrf_token %}
+        {{ form.as_p }}
+    <button type="submit">Сохранить</button>
+    </form>
+    </div>
 </body>
 </html>

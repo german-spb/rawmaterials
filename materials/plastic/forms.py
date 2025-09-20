@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import inlineformset_factory
-from .models import Plastics, Stocks, Chipboard, Glue, Documents
+from .models import Plastics, Stocks, Chipboard, Glue, Documents, NoteGlue
 from django.forms.models import ModelForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
@@ -116,6 +116,15 @@ class DocumentForm (forms.ModelForm):
         labels = {
             'glue' : 'Выбрать клей',
             'title': 'Название документа'
+        }
+
+class NoteGlueForm(forms.ModelForm):
+    class Meta:
+        model = NoteGlue
+        fields = '__all__'
+        labels = {
+            'glue': 'Выбрать клей',
+            'note': 'Добавить примечание'
         }
 
 

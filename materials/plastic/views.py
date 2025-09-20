@@ -3,8 +3,9 @@ from django.contrib import messages
 from django.http import HttpResponse, FileResponse, HttpResponseRedirect, HttpResponseNotFound
 from django_filters.conf import settings
 from django.contrib.auth.models import User
-from .forms import PlasticForm, StockForm, UploadFileForm, PlasticUpdateForm, ChipboardForm, GlueForm, PackForm, PhoneForm, DocumentForm
-from .models import Plastics, Stocks, Result, Chipboard, Glue, Pack, Phone, Documents
+from .forms import PlasticForm, StockForm, UploadFileForm, PlasticUpdateForm, ChipboardForm, GlueForm, PackForm, \
+    PhoneForm, DocumentForm, NoteGlueForm
+from .models import Plastics, Stocks, Result, Chipboard, Glue, Pack, Phone, Documents, NoteGlue
 import pandas as pd
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
@@ -469,17 +470,35 @@ def search_glue(request):
 def glue_documents(request, id):
     glue = Glue.objects.get(id=id)
     glues_documents = glue.documents_set.all()
+    glues_note = glue.noteglue_set.all()
     if request.method == 'POST':
         form = DocumentForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return render(request, 'glue_document.html', {'form': form, 'glues_documents':glues_documents, 'glue':glue})
+            return render(request, 'glue_document.html', {'form': form, 'glues_documents':glues_documents, 'glue':glue, 'glues_note': glues_note})
     else:
         form = DocumentForm()
-    return render(request, 'glue_document.html', {'form': form, 'glues_documents': glues_documents, 'glue':glue})
+    return render(request, 'glue_document.html', {'form': form, 'glues_documents': glues_documents, 'glue':glue, 'glues_note': glues_note})
+
+def glue_notes(request,id):
+    glue = Glue.objects.get(id=id)
+    glues_documents = glue.documents_set.all()
+    glues_note = glue.noteglue_set.all()
+    form= NoteGlueForm()
+    return render(request, 'glue_notes.html', {'form': form, 'glues_documents':glues_documents, 'glue':glue, 'glues_note': glues_note})
+
+def glue_notes_create(request, id):
+    if request.method == 'POST':
+        form = NoteGlueForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect(request.META.get('HTTP_REFERER'))
+    else:
+        form = NoteGlueForm()
+    return redirect(request, 'glue_notes.html', {'form': form})
 
 
-def glue_document_show(request, filename):
+def glue_document_show(request, filename): #---- вывод изображения PDF документа в браузер
     return FileResponse(open(f'documents/{filename}', 'rb'), content_type='application/pdf')
 
 def glue_delete_document(request, id):

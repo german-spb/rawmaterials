@@ -81,3 +81,6 @@ h3 { color: green; }
 .mylink-open {color:blue; font-size:12pt;}
 .mylink-open:hover {color:green; font-size:13pt;}
 
+td {
+ font-size: 13px;
+}
