@@ -5,8 +5,27 @@
   src: local('Roboto Condensed Regular'), local('RobotoCondensed-Regular'), url(http://themes.googleusercontent.com/static/fonts/robotocondensed/v7/Zd2E9abXLFGSr9G3YK2MsFzqCfRpIA3W6ypxnPISCPA.woff) format('woff');
 }
 
-html{ height:100%; font-family: 'Roboto Condensed'; }
-body{ min-height:100%; }
+html{ height:100%;
+  font-family: 'Roboto Condensed';
+
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  }
+body{ min-height:100%;
+  background-image: url(fon2.png);
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-attachment: fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+ }
 
 *{ margin:0; padding:0; }
 

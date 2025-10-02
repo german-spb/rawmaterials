@@ -137,21 +137,23 @@ def list_quantity(request):
 
 def filter_plastic(request):
     name = request.GET.get("name")
-    stocks_object = Stocks.objects.filter(plastic__code_sbk__icontains=name)
-    stocks = [{
-        'plastic': c.plastic,
-        'quantity_3050': c.quantity_3050,
-        'quantity_3050_sheet': int(c.quantity_3050 / 4.026),
-        'quantity_2440': c.quantity_2440,
-        'quantity_2440_sheet': int(c.quantity_2440 / 3.2208),
-        'quantity_4200': c.quantity_4200,
-        'quantity_4200_sheet': int(c.quantity_4200 / 5.544),
-        'quantity_rol': c.quantity_rol,
-        'quantity_rol_m': int(c.quantity_rol / 1.32),
-        'total': c.quantity_3050 + c.quantity_2440 + c.quantity_4200} for c in stocks_object]
-    dt = stocks_object.values('created_at').last()['created_at'].strftime("%d-%m-%Y  %H:%M")
-
-    return render(request, "filter_plastic.html", {"stocks": stocks, "dt": dt})
+    try:
+        stocks_object = Stocks.objects.filter(plastic__code_sbk__icontains=name)
+        stocks = [{
+            'plastic': c.plastic,
+            'quantity_3050': c.quantity_3050,
+            'quantity_3050_sheet': int(c.quantity_3050 / 4.026),
+            'quantity_2440': c.quantity_2440,
+            'quantity_2440_sheet': int(c.quantity_2440 / 3.2208),
+            'quantity_4200': c.quantity_4200,
+            'quantity_4200_sheet': int(c.quantity_4200 / 5.544),
+            'quantity_rol': c.quantity_rol,
+            'quantity_rol_m': int(c.quantity_rol / 1.32),
+            'total': c.quantity_3050 + c.quantity_2440 + c.quantity_4200} for c in stocks_object]
+        dt = stocks_object.values('created_at').last()['created_at'].strftime("%d-%m-%Y  %H:%M")
+        return render(request, "filter_plastic.html", {"stocks": stocks, "dt": dt})
+    except:
+        return HttpResponse('<h1>Совпадений не найдено!</h1>')
 
 # -------------------- Запись количества ----------------
 
@@ -393,7 +395,7 @@ def chipboard_edit(request, id):
     try:
         board = Chipboard.objects.get(id=id)
         if request.method == "POST":
-            board.name = request.POST.get("name")
+            board.thickness = request.POST.get("thickness")
             board.format = request.POST.get("format")
             board.sort = request.POST.get("sort")
             board.aqua = request.POST.get("aqua")
@@ -555,7 +557,7 @@ def pack_edit(request, id):
 
 def pack_search(request):
     name = request.GET.get('name')
-    packs = Pack.objects.filter(name__icontains=name)
+    packs = Pack.objects.filter(name__icontains=name) | Pack.objects.filter(supplier__icontains=name)
     return render(request, "pack_search.html", {"packs": packs})
 
 #=========================== Телефоны ==========================================

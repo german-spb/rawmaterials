@@ -44,6 +44,9 @@ a:nth-child(4) {
 a:nth-child(5) {
 	width: 120px;
 }
+a {
+ color: yellow;
+}
 nav .start-home, a:nth-child(1):hover~.animation {
 	width: 120px;
 	left: 0;
@@ -74,6 +77,14 @@ body {
 	font-size: 16px;
 	font-family: sans-serif;
 	background-color: #4a6b6c
+	background-image: url(fon2.jpeg);
+    background-repeat: no-repeat;
+   background-position: center center;
+   background-attachment: fixed;
+   -webkit-background-size: cover;
+   -moz-background-size: cover;
+   -o-background-size: cover;
+   background-size: cover;
 
 
 }

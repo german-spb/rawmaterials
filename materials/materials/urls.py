@@ -70,7 +70,6 @@ urlpatterns = [
     path('glue/glue_notes/<int:id>/', views.glue_notes),
     path('glue/glue_notes/<int:id>/glue_notes_create/', views.glue_notes_create),
     path('glue/glue_documents/<int:id>/glue_notes/', views.glue_notes),
-
     path('glue_form/glue_documents/<int:id>/', views.glue_documents, name='glue_documents'),
     path('documents/<str:filename>/', views.glue_document_show, name='show_document'),
     path('glue/glue_documents/delete_document/<int:id>/', views.glue_delete_document, name='delete_document'),

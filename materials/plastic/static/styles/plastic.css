@@ -76,7 +76,14 @@ body {
     padding: 5px, 50px;
     background-color: #4a6b6c;
     color: #e6dfdf;
-
+    background-image: url(fon2.png);
+    background-repeat: no-repeat;
+   background-position: center center;
+   background-attachment: fixed;
+   -webkit-background-size: cover;
+   -moz-background-size: cover;
+   -o-background-size: cover;
+   background-size: cover;
 }
 
 h1 {
