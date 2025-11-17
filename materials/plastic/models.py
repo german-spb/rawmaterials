@@ -20,10 +20,10 @@ class Plastics(models.Model):
 
 class Stocks(models.Model):
     plastic = models.ForeignKey(Plastics, on_delete=models.CASCADE, related_name='plastics')
-    quantity_3050 = models.IntegerField()
-    quantity_2440 = models.IntegerField()
-    quantity_4200 = models.IntegerField()
-    quantity_rol = models.IntegerField()
+    quantity_3050 = models.FloatField()
+    quantity_2440 = models.FloatField()
+    quantity_4200 = models.FloatField()
+    quantity_rol = models.FloatField()
     created_at = models.DateTimeField(auto_now_add=True,  editable=False)
     class Meta:
         ordering = ['plastic']

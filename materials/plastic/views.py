@@ -122,14 +122,14 @@ def list_quantity(request):
         stocks = [{
             'plastic': c.plastic,
             'quantity_3050': c.quantity_3050,
-            'quantity_3050_sheet': int(c.quantity_3050 / 4.026),
+            'quantity_3050_sheet': int(c.quantity_3050 / 3.965),
             'quantity_2440': c.quantity_2440,
-            'quantity_2440_sheet': int(c.quantity_2440 / 3.2208),
+            'quantity_2440_sheet': int(c.quantity_2440 / 3.172),
             'quantity_4200': c.quantity_4200,
-            'quantity_4200_sheet': int(c.quantity_4200 / 5.544),
+            'quantity_4200_sheet': int(c.quantity_4200 / 5.46),
             'quantity_rol': c.quantity_rol,
-            'quantity_rol_m': int(c.quantity_rol / 1.32),
-            'total': c.quantity_3050 + c.quantity_2440 + c.quantity_4200} for c in stocks_object]
+            'quantity_rol_m': int(c.quantity_rol / 1.3),
+            'total': "{:.2f}".format(c.quantity_3050 + c.quantity_2440 + c.quantity_4200)} for c in stocks_object]
         dt = stocks_object.values('created_at').last()['created_at'].strftime("%d-%m-%Y  %H:%M")
         return render(request, 'search_list_quantity.html', {'stocks': stocks, 'dt': dt})
     except:
@@ -142,14 +142,14 @@ def filter_plastic(request):
         stocks = [{
             'plastic': c.plastic,
             'quantity_3050': c.quantity_3050,
-            'quantity_3050_sheet': int(c.quantity_3050 / 4.026),
+            'quantity_3050_sheet': int(c.quantity_3050 / 3.965),
             'quantity_2440': c.quantity_2440,
-            'quantity_2440_sheet': int(c.quantity_2440 / 3.2208),
+            'quantity_2440_sheet': int(c.quantity_2440 / 3.172),
             'quantity_4200': c.quantity_4200,
-            'quantity_4200_sheet': int(c.quantity_4200 / 5.544),
+            'quantity_4200_sheet': int(c.quantity_4200 / 5.46),
             'quantity_rol': c.quantity_rol,
-            'quantity_rol_m': int(c.quantity_rol / 1.32),
-            'total': c.quantity_3050 + c.quantity_2440 + c.quantity_4200} for c in stocks_object]
+            'quantity_rol_m': int(c.quantity_rol / 1.3),
+            'total': "{:.2f}".format(c.quantity_3050 + c.quantity_2440 + c.quantity_4200)} for c in stocks_object]
         dt = stocks_object.values('created_at').last()['created_at'].strftime("%d-%m-%Y  %H:%M")
         return render(request, "filter_plastic.html", {"stocks": stocks, "dt": dt})
     except:
@@ -231,14 +231,14 @@ def search_plastic(request):
         stocks = [{
             'plastic': c.plastic,
             'quantity_3050': c.quantity_3050,
-            'quantity_3050_sheet': int(c.quantity_3050 / 4.026),
+            'quantity_3050_sheet': int(c.quantity_3050 / 3.965),
             'quantity_2440': c.quantity_2440,
-            'quantity_2440_sheet': int(c.quantity_2440 / 3.2208),
+            'quantity_2440_sheet': int(c.quantity_2440 / 3.172),
             'quantity_4200': c.quantity_4200,
-            'quantity_4200_sheet': int(c.quantity_4200 / 5.544),
+            'quantity_4200_sheet': int(c.quantity_4200 / 5.46),
             'quantity_rol': c.quantity_rol,
-            'quantity_rol_m': int(c.quantity_rol / 1.32),
-            'total': c.quantity_3050 + c.quantity_2440 + c.quantity_4200} for c in stocks_object]
+            'quantity_rol_m': int(c.quantity_rol / 1.3),
+            'total': "{:.2f}".format(c.quantity_3050 + c.quantity_2440 + c.quantity_4200)} for c in stocks_object]
         return render(request, 'search.html', {'stocks': stocks, 'plastics': plastics, 'form' : form, 'dt': dt })
     except Plastics.DoesNotExist:
         return HttpResponse('<h1>Запись не найдена или неверный код пластика</h1>')
