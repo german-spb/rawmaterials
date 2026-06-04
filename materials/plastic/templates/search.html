@@ -17,7 +17,10 @@
                 <th>Название СБК</th>
                 <th>Код поставщика</th>
                 <th>Название поставщика</th>
-                <th>Цена, м2</th>
+                <th>Тип поверхности</th>
+                <th>Цена (0.3мм)/ м2</th>
+                <th>Цена (0,4мм)/ м2</th>
+                <th>Производитель</th>
                 <th>Примечание</th>
             </tr>
             </thead>
@@ -28,7 +31,10 @@
                     <td>{{ plast.name_sbk }}</td>
                     <td>{{ plast.code_contractor }}</td>
                     <td>{{ plast.name_contractor }}</td>
+                    <td>{{ plast.surface}}</td>
+                    <td>{{ plast.price_03 }}</td>
                     <td>{{ plast.price }}</td>
+                    <td>{{ plast.fabricator }}</td>
                     <td>{{ plast.note }}</td>
                 </tr>
             {% endfor %}
@@ -46,7 +52,7 @@
                 <th colspan="2">2440</th>
                 <th colspan="2">4200</th>
                 <th colspan="2">Рулоны</th>
-                <th rowspan="2">Всего листов, м2</th>
+                <th rowspan="2">Всего, м2</th>
             </tr>
             <tr>
                 <th>м2</th>

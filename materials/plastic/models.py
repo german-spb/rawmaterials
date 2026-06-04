@@ -9,7 +9,10 @@ class Plastics(models.Model):
     name_sbk = models.CharField(max_length=50, blank=True, default='')
     code_contractor = models.CharField(max_length=20, blank=True, default='')
     name_contractor = models.CharField(max_length=50, blank=True, default='')
+    surface = models.CharField(max_length=50, blank=True, default='')
     price = models.DecimalField(max_digits=6, decimal_places=2, default=0)
+    price_03 = models.DecimalField(max_digits=6, decimal_places=2, default=0)
+    fabricator = models.CharField(max_length=50, blank=True, default='')
     note = models.TextField(blank=True, default='')
     class Meta:
         ordering = ['code_sbk']

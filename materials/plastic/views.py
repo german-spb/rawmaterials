@@ -129,7 +129,7 @@ def list_quantity(request):
             'quantity_4200_sheet': int(c.quantity_4200 / 5.46),
             'quantity_rol': c.quantity_rol,
             'quantity_rol_m': int(c.quantity_rol / 1.3),
-            'total': "{:.2f}".format(c.quantity_3050 + c.quantity_2440 + c.quantity_4200)} for c in stocks_object]
+            'total': "{:.2f}".format(c.quantity_3050 + c.quantity_2440 + c.quantity_4200 + c.quantity_rol)} for c in stocks_object]
         dt = stocks_object.values('created_at').last()['created_at'].strftime("%d-%m-%Y  %H:%M")
         return render(request, 'search_list_quantity.html', {'stocks': stocks, 'dt': dt})
     except:
@@ -149,8 +149,10 @@ def filter_plastic(request):
             'quantity_4200_sheet': int(c.quantity_4200 / 5.46),
             'quantity_rol': c.quantity_rol,
             'quantity_rol_m': int(c.quantity_rol / 1.3),
-            'total': "{:.2f}".format(c.quantity_3050 + c.quantity_2440 + c.quantity_4200)} for c in stocks_object]
+            'total': "{:.2f}".format(c.quantity_3050 + c.quantity_2440 + c.quantity_4200 + c.quantity_rol)} for c in stocks_object]
         dt = stocks_object.values('created_at').last()['created_at'].strftime("%d-%m-%Y  %H:%M")
+        df = pd.DataFrame(stocks_object.values())
+        df.to_excel("plastic/static/output.xlsx", index=False)
         return render(request, "filter_plastic.html", {"stocks": stocks, "dt": dt})
     except:
         return HttpResponse('<h1>Совпадений не найдено!</h1>')
@@ -188,12 +190,18 @@ def input_update_code_fields(request):
         'name_sbk': c.name_sbk,
         'code_contractor': c.code_contractor,
         'name_contractor': c.name_contractor,
+        'surface': c.surface,
         'price': c.price,
+        'price_03': c.price_03,
+        'fabricator':c.fabricator,
         'note': c.note} for c in cur_objects]
     cur_name_sbk  = plastics[0]['name_sbk']
     cur_code = plastics[0]['code_contractor']
     cur_name_contractor = plastics[0]['name_contractor']
+    cur_surface = plastics[0]['surface']
+    cur_price_03 = plastics[0]['price_03']
     cur_price = plastics[0]['price']
+    cur_fabricator = plastics[0]['fabricator']
     cur_note = plastics[0]['note']
     if request.GET.get("name_sbk"):
         name_sbk = request.GET.get("name_sbk")
@@ -204,13 +212,22 @@ def input_update_code_fields(request):
     if request.GET.get("name_contractor"):
         name_contractor = request.GET.get("name_contractor")
     else: name_contractor = cur_name_contractor
+    if request.GET.get("surface"):
+        surface = request.GET.get("surface")
+    else: surface = cur_surface
+    if request.GET.get("price_03"):
+        price_03 = request.GET.get("price_03")
+    else: price_03 = cur_price_03
     if request.GET.get("price"):
         price = request.GET.get("price")
     else: price = cur_price
+    if request.GET.get("fabricator"):
+        fabricator = request.GET.get("fabricator")
+    else: fabricator = cur_fabricator
     if request.GET.get("note"):
         note = request.GET.get("note")
     else: note = cur_note
-    Plastics.objects.filter(code_sbk=code).update(name_sbk=name_sbk, code_contractor=code_contractor, name_contractor=name_contractor, price=price, note=note)
+    Plastics.objects.filter(code_sbk=code).update(name_sbk=name_sbk, code_contractor=code_contractor, name_contractor=name_contractor, surface=surface,price_03=price_03, price=price,fabricator=fabricator, note=note)
     return redirect(request.META.get('HTTP_REFERER')) # возврат на предыдущую страницу
 
 
@@ -277,7 +294,7 @@ def upload_file(request):
                         quantity_4200=row['quantity_4200'],
                         quantity_rol=row['quantity_rol'],
                     )
-                    # messages.success(request, f'Successfully imported files')
+                    messages.success(request, f'Successfully imported files')
                 except Plastics.DoesNotExist:
                     return HttpResponse(f'<h1>Код пластика {row["plastic"]} отсутствует в базе данных!</h1>')
         return redirect('home')
@@ -349,7 +366,9 @@ def delete_result(request):
 # --------------- Запись в excel файл -------------
 
 def to_excel(request):
-    data = Result.objects.all().values()
+    # data = Result.objects.all().values()
+    data = Stocks.objects.all().values()
+    # data = Stocks.objects.filter(plastic__code_sbk__icontains=name)
     df = pd.DataFrame(data)
     df.to_excel("plastic/static/output.xlsx", index=False)
     return HttpResponse('<h2><a href="/static/output.xlsx">Скачать Excel файл поставщика</a></h2>')

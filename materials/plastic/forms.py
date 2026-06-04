@@ -28,7 +28,10 @@ class PlasticForm(forms.ModelForm):
             'name_sbk': 'Название СБК:',
             'code_contractor': 'Код поставщика:',
             'name_contractor': 'Название поставщика:',
+            'surface':'Тип поверхности:',
             'price': 'Цена, м2:',
+            'price_03': 'Цена (0,3мм), м2:',
+            'fabricator': 'Производитель',
             'note': 'Примечание:',
         }
 
@@ -53,7 +56,10 @@ class PlasticUpdateForm(forms.Form):
     name_sbk = forms.CharField(label="Название СБК", required=False)
     code_contractor = forms.CharField(label="Код поставщика", required=False)
     name_contractor = forms.CharField(label="Название поставщика", required=False)
-    price = forms.DecimalField(label="Цена", required=False)
+    surface = forms.CharField(label="Тип поверхности", required=False)
+    price = forms.DecimalField(label="Цена (0,4 мм)", required=False)
+    price_03 = forms.DecimalField(label="Цена (0,3 мм)", required=False)
+    fabricator = forms.CharField(label="Производитель", required=False)
     note = forms.CharField(widget=forms.Textarea, required=False)
 
 
