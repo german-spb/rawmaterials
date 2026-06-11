@@ -130,7 +130,7 @@ def list_quantity(request):
             'quantity_4200_sheet': int(c.quantity_4200 / 5.46),
             'quantity_rol': c.quantity_rol,
             'quantity_rol_m': int(c.quantity_rol / 1.3),
-            'total': "{:.2f}".format(c.quantity_3050 + c.quantity_2440 + c.quantity_4200)} for c in stocks_object]
+            'total': "{:.2f}".format(c.quantity_3050 + c.quantity_2440 + c.quantity_4200 + c.quantity_rol )} for c in stocks_object]
         dt = stocks_object.values('created_at').last()['created_at'].strftime("%d-%m-%Y  %H:%M")
         return render(request, 'search_list_quantity.html', {'stocks': stocks, 'dt': dt})
     except:
@@ -150,11 +150,14 @@ def filter_plastic(request):
             'quantity_4200_sheet': int(c.quantity_4200 / 5.46),
             'quantity_rol': c.quantity_rol,
             'quantity_rol_m': int(c.quantity_rol / 1.3),
-            'total': "{:.2f}".format(c.quantity_3050 + c.quantity_2440 + c.quantity_4200)} for c in stocks_object]
+            'total': "{:.2f}".format(c.quantity_3050 + c.quantity_2440 + c.quantity_4200 + c.quantity_rol )} for c in stocks_object]
         dt = stocks_object.values('created_at').last()['created_at'].strftime("%d-%m-%Y  %H:%M")
-        sum = stocks_object.aggregate(Sum("quantity_rol"))
-        print(sum)
-        return render(request, "filter_plastic.html", {"stocks": stocks, "dt": dt})
+        sum_3050 = stocks_object.aggregate(Sum("quantity_3050"))["quantity_3050__sum"]
+        sum_2440 = stocks_object.aggregate(Sum("quantity_2440"))["quantity_2440__sum"]
+        sum_4200 = stocks_object.aggregate(Sum("quantity_4200"))["quantity_4200__sum"]
+        sum_rol = stocks_object.aggregate(Sum("quantity_rol"))["quantity_rol__sum"]
+        sum_total = sum_3050 + sum_2440 + sum_4200 + sum_rol
+        return render(request, "filter_plastic.html", {"stocks": stocks, "dt": dt, "sum_3050": "{:.2f}".format(sum_3050), "sum_2440": "{:.2f}".format(sum_2440), "sum_4200": "{:.2f}".format(sum_4200), "sum_rol": "{:.2f}".format(sum_rol), "sum_total": "{:.2f}".format(sum_total)})
     except:
         return HttpResponse('<h1>Совпадений не найдено!</h1>')
 
@@ -191,12 +194,18 @@ def input_update_code_fields(request):
         'name_sbk': c.name_sbk,
         'code_contractor': c.code_contractor,
         'name_contractor': c.name_contractor,
+        'surface': c.surface,
+        'price_03': c.price_03,
         'price': c.price,
+        'fabricator': c.fabricator,
         'note': c.note} for c in cur_objects]
     cur_name_sbk  = plastics[0]['name_sbk']
     cur_code = plastics[0]['code_contractor']
     cur_name_contractor = plastics[0]['name_contractor']
+    cur_surface=plastics[0]["surface"]
+    cur_price_03 = plastics[0]['price_03']
     cur_price = plastics[0]['price']
+    cur_fabricator = plastics[0]['fabricator']
     cur_note = plastics[0]['note']
     if request.GET.get("name_sbk"):
         name_sbk = request.GET.get("name_sbk")
@@ -207,13 +216,23 @@ def input_update_code_fields(request):
     if request.GET.get("name_contractor"):
         name_contractor = request.GET.get("name_contractor")
     else: name_contractor = cur_name_contractor
+    if request.GET.get("surface"):
+        surface = request.GET.get("surface")
+    else: surface = cur_surface
+    if request.GET.get("price_03"):
+        price_03 = request.GET.get("price_03")
+    else: price_03 = cur_price_03
     if request.GET.get("price"):
         price = request.GET.get("price")
     else: price = cur_price
+    if request.GET.get("fabricator"):
+        fabricator = request.GET.get("fabricator")
+    else:
+        fabricator = cur_fabricator
     if request.GET.get("note"):
         note = request.GET.get("note")
     else: note = cur_note
-    Plastics.objects.filter(code_sbk=code).update(name_sbk=name_sbk, code_contractor=code_contractor, name_contractor=name_contractor, price=price, note=note)
+    Plastics.objects.filter(code_sbk=code).update(name_sbk=name_sbk, code_contractor=code_contractor, name_contractor=name_contractor, surface=surface, price_03=price_03,  price=price, fabricator=fabricator, note=note)
     return redirect(request.META.get('HTTP_REFERER')) # возврат на предыдущую страницу
 
 
@@ -227,8 +246,8 @@ def search_plastic(request):
     form = PlasticUpdateForm()
     code_sbk = request.GET.get("code_sbk")
     plastics = Plastics.objects.filter(code_sbk__istartswith = code_sbk)
+    # plastics = Plastics.objects.filter(code_sbk__iexact=code_sbk)
     dt = Stocks.objects.all().values('created_at').last()['created_at'].strftime("%d-%m-%Y  %H:%M")
-    # return render(request, 'search.html', {'plastics': plastics, 'form': form, 'dt': dt})
     try:
         code = Plastics.objects.get(code_sbk__iexact = code_sbk)
         stocks_object = Stocks.objects.filter(plastic=code).order_by('-id')[:1]
@@ -242,7 +261,7 @@ def search_plastic(request):
             'quantity_4200_sheet': int(c.quantity_4200 / 5.46),
             'quantity_rol': c.quantity_rol,
             'quantity_rol_m': int(c.quantity_rol / 1.3),
-            'total': "{:.2f}".format(c.quantity_3050 + c.quantity_2440 + c.quantity_4200)} for c in stocks_object]
+            'total': "{:.2f}".format(c.quantity_3050 + c.quantity_2440 + c.quantity_4200 + c.quantity_rol)} for c in stocks_object]
         return render(request, 'search.html', {'stocks': stocks, 'plastics': plastics, 'form' : form, 'dt': dt })
     except Plastics.DoesNotExist:
         return HttpResponse('<h1>Запись не найдена или неверный код пластика</h1>')
