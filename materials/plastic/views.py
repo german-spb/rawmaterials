@@ -139,7 +139,7 @@ def list_quantity(request):
 def filter_plastic(request):
     name = request.GET.get("name")
     try:
-        stocks_object = Stocks.objects.filter(plastic__code_sbk__icontains=name) | Stocks.objects.filter(plastic__fabricator__icontains=name)
+        stocks_object = Stocks.objects.filter(plastic__code_sbk__icontains=name) | Stocks.objects.filter(plastic__fabricator__iexact=name)
         stocks = [{
             'plastic': c.plastic,
             'quantity_3050': c.quantity_3050,
@@ -246,7 +246,6 @@ def search_plastic(request):
     form = PlasticUpdateForm()
     code_sbk = request.GET.get("code_sbk")
     plastics = Plastics.objects.filter(code_sbk__istartswith = code_sbk)
-    # plastics = Plastics.objects.filter(code_sbk__iexact=code_sbk)
     dt = Stocks.objects.all().values('created_at').last()['created_at'].strftime("%d-%m-%Y  %H:%M")
     try:
         code = Plastics.objects.get(code_sbk__iexact = code_sbk)
