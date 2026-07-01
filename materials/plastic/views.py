@@ -197,6 +197,7 @@ def input_update_code_fields(request):
         'surface': c.surface,
         'price_03': c.price_03,
         'price': c.price,
+        'price_05': c.price_05,
         'fabricator': c.fabricator,
         'note': c.note} for c in cur_objects]
     cur_name_sbk  = plastics[0]['name_sbk']
@@ -205,6 +206,7 @@ def input_update_code_fields(request):
     cur_surface=plastics[0]["surface"]
     cur_price_03 = plastics[0]['price_03']
     cur_price = plastics[0]['price']
+    cur_price_05 = plastics[0]['price_05']
     cur_fabricator = plastics[0]['fabricator']
     cur_note = plastics[0]['note']
     if request.GET.get("name_sbk"):
@@ -225,6 +227,9 @@ def input_update_code_fields(request):
     if request.GET.get("price"):
         price = request.GET.get("price")
     else: price = cur_price
+    if request.GET.get("price_05"):
+        price_05 = request.GET.get("price_05")
+    else: price_05 = cur_price_05
     if request.GET.get("fabricator"):
         fabricator = request.GET.get("fabricator")
     else:
@@ -232,7 +237,7 @@ def input_update_code_fields(request):
     if request.GET.get("note"):
         note = request.GET.get("note")
     else: note = cur_note
-    Plastics.objects.filter(code_sbk=code).update(name_sbk=name_sbk, code_contractor=code_contractor, name_contractor=name_contractor, surface=surface, price_03=price_03,  price=price, fabricator=fabricator, note=note)
+    Plastics.objects.filter(code_sbk=code).update(name_sbk=name_sbk, code_contractor=code_contractor, name_contractor=name_contractor, surface=surface, price_03=price_03,  price=price, price_05=price_05, fabricator=fabricator, note=note)
     return redirect(request.META.get('HTTP_REFERER')) # возврат на предыдущую страницу
 
 
@@ -249,8 +254,9 @@ def search_plastic(request):
     # plastics = Plastics.objects.filter(code_sbk__iexact=code_sbk)
     dt = Stocks.objects.all().values('created_at').last()['created_at'].strftime("%d-%m-%Y  %H:%M")
     try:
-        code = Plastics.objects.get(code_sbk__iexact = code_sbk)
-        stocks_object = Stocks.objects.filter(plastic=code).order_by('-id')[:1]
+        # code = Plastics.objects.get(code_sbk__iexact = code_sbk)
+        # stocks_object = Stocks.objects.filter(plastic=code).order_by('-id')[:1]
+        stocks_object = Stocks.objects.filter(plastic__code_sbk__icontains=code_sbk)
         stocks = [{
             'plastic': c.plastic,
             'quantity_3050': c.quantity_3050,
