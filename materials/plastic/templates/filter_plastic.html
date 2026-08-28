@@ -13,7 +13,7 @@
 
 
 <div style="max-height: 600px; overflow: auto;">
-        <table>
+        <table id="myTable">
             <caption><h2> Количество на складе: &nbsp;&nbsp;&nbsp;&nbsp; {{ dt }} </h2></caption>
             <thead>
             <tr>
@@ -40,14 +40,14 @@
             {% for stock  in stocks  %}
                 <tr>
                     <td>{{ stock.plastic }}</td>
-                    <td>{{ stock.quantity_3050 }}</td>
-                    <td>{{ stock.quantity_3050_sheet }}</td>
+                    <td class='special-cell'>{{ stock.quantity_3050 }}</td>
+                    <td class='special-cell'>{{ stock.quantity_3050_sheet }}</td>
                     <td>{{ stock.quantity_2440 }}</td>
                     <td>{{ stock.quantity_2440_sheet }}</td>
                     <td>{{ stock.quantity_4200 }}</td>
                     <td>{{ stock.quantity_4200_sheet }}</td>
-                    <td>{{ stock.quantity_rol  }}</td>
-                    <td>{{ stock.quantity_rol_m }}</td>
+                    <td class='special-cell'>{{ stock.quantity_rol  }}</td>
+                    <td class='special-cell'>{{ stock.quantity_rol_m }}</td>
                     <td>{{ stock.total }}</td>
                 </tr>
             {% endfor %}
@@ -66,7 +66,19 @@
             </tbody>
 
         </table>
+<script>
+document.querySelectorAll('#myTable td.special-cell').forEach(cell => {
+    // Проверяем, что в ячейке не просто «0», а что там число 0
+    if (parseInt(cell.textContent.trim(), 10) === 0) {
+        // Меняем фон на красный
+        cell.style.backgroundColor = '#6a9dd9';
+        // Если нужно сделать текст красным тоже — раскомментируйте следующую строку
+        cell.style.color = 'red';
 
+    }
+});
+
+</script>
 </div>
 <div class="but">
 <a href="/total" class="button">Сбросить</a>

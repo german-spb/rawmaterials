@@ -128,7 +128,7 @@ def list_quantity(request):
             'quantity_2440_sheet': int(c.quantity_2440 / 3.172),
             'quantity_4200': c.quantity_4200,
             'quantity_4200_sheet': int(c.quantity_4200 / 5.46),
-            'quantity_rol': c.quantity_rol,
+            'quantity_rol': "{:.2f}".format(c.quantity_rol),
             'quantity_rol_m': int(c.quantity_rol / 1.3),
             'total': "{:.2f}".format(c.quantity_3050 + c.quantity_2440 + c.quantity_4200 + c.quantity_rol )} for c in stocks_object]
         dt = stocks_object.values('created_at').last()['created_at'].strftime("%d-%m-%Y  %H:%M")
@@ -139,7 +139,7 @@ def list_quantity(request):
 def filter_plastic(request):
     name = request.GET.get("name")
     try:
-        stocks_object = Stocks.objects.filter(plastic__code_sbk__icontains=name) | Stocks.objects.filter(plastic__fabricator__iexact=name)
+        stocks_object = Stocks.objects.filter(plastic__code_sbk__icontains=name) | Stocks.objects.filter(plastic__fabricator__iexact=name) | Stocks.objects.filter(plastic__name_sbk__iexact=name)
         stocks = [{
             'plastic': c.plastic,
             'quantity_3050': c.quantity_3050,
@@ -250,12 +250,12 @@ def search(request):
 def search_plastic(request):
     form = PlasticUpdateForm()
     code_sbk = request.GET.get("code_sbk")
-    plastics = Plastics.objects.filter(code_sbk__istartswith = code_sbk)
+    plastics = Plastics.objects.filter(code_sbk__istartswith = code_sbk) | Plastics.objects.filter(name_sbk__istartswith = code_sbk)
     dt = Stocks.objects.all().values('created_at').last()['created_at'].strftime("%d-%m-%Y  %H:%M")
     try:
         # code = Plastics.objects.get(code_sbk__iexact = code_sbk)
         # stocks_object = Stocks.objects.filter(plastic=code).order_by('-id')[:1]
-        stocks_object = Stocks.objects.filter(plastic__code_sbk__icontains=code_sbk)
+        stocks_object = Stocks.objects.filter(plastic__code_sbk__icontains=code_sbk) | Stocks.objects.filter(plastic__name_sbk__icontains=code_sbk)
         stocks = [{
             'plastic': c.plastic,
             'quantity_3050': c.quantity_3050,
@@ -264,7 +264,7 @@ def search_plastic(request):
             'quantity_2440_sheet': int(c.quantity_2440 / 3.172),
             'quantity_4200': c.quantity_4200,
             'quantity_4200_sheet': int(c.quantity_4200 / 5.46),
-            'quantity_rol': c.quantity_rol,
+            'quantity_rol': "{:.2f}".format( c.quantity_rol),
             'quantity_rol_m': int(c.quantity_rol / 1.3),
             'total': "{:.2f}".format(c.quantity_3050 + c.quantity_2440 + c.quantity_4200 + c.quantity_rol)} for c in stocks_object]
         return render(request, 'search.html', {'stocks': stocks, 'plastics': plastics, 'form' : form, 'dt': dt })
