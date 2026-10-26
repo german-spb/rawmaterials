@@ -4,17 +4,19 @@ from django.http import HttpResponse, FileResponse, HttpResponseRedirect, HttpRe
 from django_filters.conf import settings
 from django.contrib.auth.models import User
 from .forms import PlasticForm, StockForm, UploadFileForm, PlasticUpdateForm, ChipboardForm, GlueForm, PackForm, \
-    PhoneForm, DocumentForm, NoteGlueForm
-from .models import Plastics, Stocks, Result, Chipboard, Glue, Pack, Phone, Documents, NoteGlue
+    PhoneForm, DocumentForm, NoteGlueForm, CostPriceForm
+from .models import Plastics, Stocks, Result, Chipboard, Glue, Pack, Phone, Documents, CostPrice, DefectPlastic
 import pandas as pd
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import get_object_or_404
 import os
+import io
 from django.urls import path
 from django.conf import settings
 from django.contrib.auth import authenticate, login, logout
 from django.db.models import Sum
-
+from decimal import Decimal, InvalidOperation
+from docxtpl import DocxTemplate
 
 def login_page(request):
     # Check if the HTTP request method is POST (form submission)
@@ -100,7 +102,6 @@ def code_entry(requests):
 def create_plastic(request):
     # получаем из данных запроса POST отправленные через форму данные
     code_sbk = request.POST.get("code_sbk", "Undefined")
-    print(code_sbk)
     name_sbk = request.POST.get("name_sbk", "Undefined")
     code_contractor = request.POST.get("code_contractor", "Undefined")
     name_contractor = request.POST.get("name_contractor", "Undefined")
@@ -633,3 +634,154 @@ def phone_search(request):
     first_name = request.GET.get('surname')
     phones = Phone.objects.filter(surname__icontains=name)
     return render(request, "phone_search.html", {"phones": phones})
+
+
+# ========================================= ТОРГ-2 =========================================
+@login_required
+def coastprice_entry(requests):
+    form = CostPriceForm()
+    coast = CostPrice.objects.all().last()
+    return render(requests, 'coastprice_entry.html', {'form': form, 'coast': coast})
+
+def coastprice_create(request):
+    try:
+        # получаем из данных запроса POST отправленные через форму данные
+        price_26х600х3050 = request.POST.get("price_26х600х3050", 0)
+        price_26х600х2440 = request.POST.get("price_26х600х2440", 0)
+        price_26х600х2500 = request.POST.get("price_26х600х2500", 0)
+        price_38х600х2440 = request.POST.get("price_38х600х2440", 0)
+        price_38х600х3050 = request.POST.get("price_38х600х3050", 0)
+        price_38х800х3050 = request.POST.get("price_38х800х3050", 0)
+        price_38х900х3050 = request.POST.get("price_38х900х3050", 0)
+        price_38х600х4200 = request.POST.get("price_38х600х4200", 0)
+        price_4х600х3050 = request.POST.get("price_4х600х3050", 0)
+        price_6х600х3050 = request.POST.get("price_6х600х3050", 0)
+        price_6х600х2400 = request.POST.get("price_6х600х2400", 0)
+        price = CostPrice(price_26х600х3050=price_26х600х3050, price_26х600х2440=price_26х600х2440, price_26х600х2500=price_26х600х2500, price_38х600х2440=price_38х600х2440, price_38х600х3050=price_38х600х3050,
+                          price_38х800х3050=price_38х800х3050, price_38х900х3050=price_38х900х3050, price_38х600х4200=price_38х600х4200, price_4х600х3050=price_4х600х3050, price_6х600х3050=price_6х600х3050, price_6х600х2400=price_6х600х2400)
+        price.save()
+        return HttpResponse('Записано')
+    except InvalidOperation:
+        return HttpResponse ('Замените запятую на точку')
+
+
+
+def upload_defect_plastic(request):
+    if request.method == 'POST':
+        form = UploadFileForm(request.POST, request.FILES)
+        coast = CostPrice.objects.all().last()
+
+        if form.is_valid():
+            file = request.FILES['file']
+            df = pd.read_excel(file)
+            for _, row in df.iterrows():
+                try:
+
+                    plastic = Plastics.objects.get(code_sbk= row['code_sbk'])
+                    code_contractor = plastic.code_contractor
+                    current_price = Plastics.objects.filter(code_sbk=plastic).last().price
+                    defect_plastic = float(row['defect_plastic'])
+                    quantity_26х600х3050 = float(row['26_600_3050'] * float(coast.price_26х600х3050)) / float(Plastics.objects.filter(code_sbk=plastic).last().price)
+                    board_26х600х3050 = float(row['26_600_3050'])
+                    quantity_26х600х2440 = float(row['26_600_2440'] * coast.price_26х600х2440) / float(Plastics.objects.filter(code_sbk=plastic).last().price)
+                    board_26х600х2440 = float(row['26_600_2440'])
+                    quantity_26х600х2500 = float(row['26_600_2500'] * coast.price_26х600х2500) / float(Plastics.objects.filter(code_sbk=plastic).last().price)
+                    board_26х600х2500 = float(row['26_600_2500'])
+                    quantity_38х600х2440 = float(row['38_600_2440'] * coast.price_38х600х2440) / float(Plastics.objects.filter(code_sbk=plastic).last().price)
+                    board_38х600х2440 = float(row['38_600_2440'])
+                    quantity_38х600х3050 = float(row['38_600_3050'] * coast.price_38х600х3050) / float(Plastics.objects.filter(code_sbk=plastic).last().price)
+                    board_38х600х3050 = float(row['38_600_3050'])
+                    quantity_38х800х3050 = float(row['38_800_3050'] * coast.price_38х800х3050) / float(Plastics.objects.filter(code_sbk=plastic).last().price)
+                    board_38х800х3050 = float(row['38_800_3050'])
+                    quantity_38х900х3050 = float(row['38_900_3050'] * coast.price_38х900х3050) / float(Plastics.objects.filter(code_sbk=plastic).last().price)
+                    board_38х900х3050 = float(row['38_900_3050'])
+                    quantity_38х600х4200 = float(row['38_600_4200'] * coast.price_38х600х4200) / float(Plastics.objects.filter(code_sbk=plastic).last().price)
+                    board_38х600х4200 = float(row['38_600_4200'])
+                    quantity_4х600х3050 = float(row['4_600_3050'] * coast.price_4х600х3050) / float(Plastics.objects.filter(code_sbk=plastic).last().price)
+                    board_4х600х3050 = float(row['4_600_3050'])
+                    quantity_6х600х3050 = float(row['6_600_3050'] * coast.price_6х600х3050) / float(Plastics.objects.filter(code_sbk=plastic).last().price)
+                    board_6х600х3050 = float(row['6_600_3050'])
+                    quantity_6х600х2400 = float(row['6_600_2400'] * coast.price_6х600х2400) / float(Plastics.objects.filter(code_sbk=plastic).last().price)
+                    board_6х600х2400 = float(row['6_600_2400'])
+                    sum_quntity = quantity_26х600х3050 + quantity_26х600х2440 + quantity_26х600х2500 + quantity_38х600х2440 + quantity_38х600х3050 + quantity_38х800х3050 + quantity_38х900х3050 + quantity_38х600х4200 + quantity_4х600х3050 + quantity_6х600х3050 + quantity_6х600х2400
+                    sum_coast_board = float(row['26_600_3050'] * float(coast.price_26х600х3050)) + float(row['26_600_2440'] * coast.price_26х600х2440) + float(row['26_600_2500'] * coast.price_26х600х2500) + float(row['38_600_2440'] * coast.price_38х600х2440) + float(row['38_600_3050'] * coast.price_38х600х3050) + float(row['38_800_3050'] * coast.price_38х800х3050) + float(row['38_900_3050'] * coast.price_38х900х3050) + float(row['38_600_4200'] * coast.price_38х600х4200) + float(row['4_600_3050'] * coast.price_4х600х3050) + float(row['6_600_3050'] * coast.price_6х600х3050) + float(row['6_600_2400'] * coast.price_6х600х2400)
+                    coast_defect_plastic = float(row['defect_plastic']) * float(Plastics.objects.filter(code_sbk=plastic).last().price)
+                    total_defect_plastic = sum_quntity + defect_plastic
+                    total_coast_defect_plastic = sum_coast_board + coast_defect_plastic
+                    created = DefectPlastic(plastic=plastic, code_contractor=code_contractor, current_price=current_price, defect_plastic=defect_plastic,
+                                            quantity_26х600х3050=quantity_26х600х3050, board_26х600х3050=board_26х600х3050, quantity_26х600х2440=quantity_26х600х2440, board_26х600х2440=board_26х600х2440,
+                                            quantity_26х600х2500=quantity_26х600х2500, board_26х600х2500=board_26х600х2500, quantity_38х600х2440=quantity_38х600х2440,board_38х600х2440 = board_38х600х2440,
+                                            quantity_38х600х3050=quantity_38х600х3050, board_38х600х3050=board_38х600х3050, quantity_38х800х3050=quantity_38х800х3050, board_38х800х3050=board_38х800х3050,
+                                            quantity_38х900х3050=quantity_38х900х3050, board_38х900х3050=board_38х900х3050, quantity_38х600х4200=quantity_38х600х4200, board_38х600х4200=board_38х600х4200,
+                                            quantity_4х600х3050=quantity_4х600х3050, board_4х600х3050=board_4х600х3050, quantity_6х600х3050=quantity_6х600х3050, board_6х600х3050=board_6х600х3050,
+                                            quantity_6х600х2400=quantity_6х600х2400, board_6х600х2400=board_6х600х2400, sum_quntity=sum_quntity, sum_coast_board=sum_coast_board, coast_defect_plastic=coast_defect_plastic,
+                                            total_defect_plastic=total_defect_plastic, total_coast_defect_plastic=total_coast_defect_plastic)
+
+                    created.save()
+
+
+                except Plastics.DoesNotExist:
+                    return HttpResponse(f'<h1>Код пластика {row["code_sbk"]} отсутствует в базе данных!</h1>')
+                except ZeroDivisionError:
+                    return HttpResponse(f'Деление на ноль! Отсутствует цена пластика {row["code_sbk"]}')
+
+        return render(request, 'defect_plastic.html')
+    else:
+        form = UploadFileForm()
+    return render(request, 'upload.html', {'form': form})
+
+def torg_2(request):
+    code = DefectPlastic.objects.all()
+    coast = CostPrice.objects.all().last()
+    sum = DefectPlastic.objects.aggregate(Sum("defect_plastic"))
+    sum_coast_defect_plastic = DefectPlastic.objects.aggregate(Sum("coast_defect_plastic"))
+    sum_quntity_agg = DefectPlastic.objects.aggregate(Sum("sum_quntity"))
+    sum_coast_board_agg = DefectPlastic.objects.aggregate(Sum("sum_coast_board"))
+    total_sum_defect_plastic = sum['defect_plastic__sum'] + sum_quntity_agg['sum_quntity__sum']
+    sum_total_defect_plastic = DefectPlastic.objects.aggregate(Sum("total_defect_plastic"))
+    sum_total_coast_defect_plastic = DefectPlastic.objects.aggregate(Sum("total_coast_defect_plastic"))
+
+    return render(request, 'torg_2.html', {'code': code, 'coast': coast, 'sum': sum['defect_plastic__sum'],
+                                           'sum_coast_defect_plastic': sum_coast_defect_plastic['coast_defect_plastic__sum'], 'sum_quntity_agg': sum_quntity_agg['sum_quntity__sum'],
+                                           'sum_coast_board_agg': sum_coast_board_agg['sum_coast_board__sum'], 'total_sum_defect_plastic': total_sum_defect_plastic,
+                                           'sum_total_defect_plastic': sum_total_defect_plastic['total_defect_plastic__sum'], 'sum_total_coast_defect_plastic': sum_total_coast_defect_plastic['total_coast_defect_plastic__sum']})
+
+def to_excel_plastic(request):
+    data = DefectPlastic.objects.all().values()
+    df = pd.DataFrame(data)
+    df.to_excel("plastic/static/output_defect.xlsx", index=False)
+    return HttpResponse('<h2><a href="/static/output_defect.xlsx">Скачать Excel файл ТОРГ-2</a></h2>')
+
+def delete_defect_plastic(request):
+    DefectPlastic.objects.all().delete()
+    return HttpResponse('Данные ТОРГ-2 удалены')
+
+def upload_shablon(request):
+    form = UploadFileForm(request.POST, request.FILES)
+    boards = Chipboard.objects.all().filter(thickness='ДСП 25мм', sort='1').last()
+
+    if request.method == 'POST':
+        form = UploadFileForm(request.POST, request.FILES)
+        if form.is_valid():
+            uploaded_file = request.FILES['file']
+            file_content = uploaded_file.read()
+            doc = DocxTemplate(io.BytesIO(file_content))
+            context = {
+                'company': '"СоюзБалтКомплект"',
+
+                'date': '16.09.2026',
+                'number': '01'
+            }
+
+            # Заполнение шаблона данными
+            doc.render(context)
+            context1 = {
+                'price': boards.price,
+            }
+            doc.render(context1)
+
+            # Сохранение документа
+            doc.save("C:\\Users\\gkoretskiy\\Downloads\\torg-2_new2.docx")
+
+            return HttpResponse('Оформлено!')
+    return render(request, 'upload.html', {'form': form})

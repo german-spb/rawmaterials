@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Себестоимость столешниц</title>
+</head>
+<body>
+    <form method="POST" action="create_coastprice/">
+        {% csrf_token %}
+
+        <p>
+            <label>26х600х3050</label><br>
+              <input step="0,01" name="price_26х600х3050" value="{{coast.price_26х600х3050}}" />
+        </p>
+        <p>
+            <label>26х600х2440</label><br>
+              <input step="0,01" name="price_26х600х2440" value="{{coast.price_26х600х2440}}" />
+        </p>
+         <p>
+            <label>26х600х2500</label><br>
+            <input step="0,01" name="price_26х600х2500" value="{{coast.price_26х600х2500}}" />
+        </p>
+        <p>
+            <label>38х600х2440</label><br>
+            <input step="0,01" name="price_38х600х2440" value="{{coast.price_26х600х2500}}" />
+        </p>
+         <p>
+            <label>38х600х3050</label><br>
+           <input step="0,01" name="price_38х600х3050" value="{{coast.price_38х600х3050}}" />
+        </p>
+         <p>
+            <label>38х800х3050</label><br>
+            <input step="0,01" name="price_38х800х3050" value="{{coast.price_38х800х3050}}" />
+        </p>
+        <p>
+            <label>38х900х3050</label><br>
+           <input step="0,01" name="price_38х900х3050" value="{{coast.price_38х900х3050}}" />
+        </p>
+         <p>
+            <label>38х600х4200</label><br>
+           <input step="0,01" name="price_38х600х4200" value="{{coast.price_38х600х4200}}" />
+        </p>
+         <p>
+            <label>4х600х3050</label><br>
+           <input step="0,01" name="price_4х600х3050" value="{{coast.price_4х600х3050}}" />
+        </p>
+         <p>
+            <label>6х600х3050</label><br>
+           <input step="0,01" name="price_6х600х3050" value="{{coast.price_6х600х3050}}" />
+        </p>
+         <p>
+            <label>6х600х2400</label><br>
+           <input step="0,01" name="price_6х600х2400" value="{{coast.price_6х600х2400}}" />
+        </p>
+        <input type="submit" value="Сохранить" >
+
+    </form>
+</body>
+</html>

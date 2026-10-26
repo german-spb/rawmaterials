@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+ {% load static %}
+     <link rel="stylesheet" href="{% static 'styles/torg_2.css' %}">
+</head>
+<body>
+<h3>Данные для ТОРГ-2</h3>
+<div class="parent">
+    <div class="child">
+                <table border="1">
+                <thead>
+                <tr>
+                    <th>Код поставщика</th>
+                    <th>Брак ДБСП</th>
+                    <th>Цена ДБСП</th>
+                    <th>Сумма брака</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td></td>
+                    <td>м2</td>
+                    <td>руб</td>
+                    <td>руб. с НДС</td>
+                </tr>
+                {% for cod in code %}
+                <tr>
+                    <td>{{ cod.code_contractor }}</td>
+                    <td>{{ cod.defect_plastic}}</td>
+                    <td>{{ cod.current_price}}</td>
+                    <td>{{ cod.coast_defect_plastic }}</td>
+                </tr>
+                {% endfor %}
+
+                 </tbody>
+                <tfoot>
+                <tr>
+                    <td>Итого</td>
+                    <td>{{ sum | floatformat:3 }}</td>
+                    <td></td>
+                    <td>{{ sum_coast_defect_plastic }} </td>
+                </tr>
+                </tfoot>
+                </table>
+    </div>
+    <div class="child">
+
+                <table border="1">
+                <thead>
+                <tr>
+                    <th colspan="2">26х600х3050</th>
+                    <th colspan="2">26х600х2440</th>
+                    <th colspan="2">26х600х2500</th>
+                    <th colspan="2">38х600х2440</th>
+                    <th colspan="2">38х600х3050</th>
+                    <th colspan="2">38х800х3050</th>
+                    <th colspan="2">38х900х3050</th>
+                    <th colspan="2">38х600х4200</th>
+                    <th colspan="2">4х600х3050</th>
+                    <th colspan="2">6х600х3050</th>
+                    <th colspan="2">6х600х2400</th>
+                    <th colspan="2">Сырье</th>
+                    <th colspan="2">На 3-ю стр.</th>
+                </tr>
+                </thead>
+                <tbody>
+
+                <tr>
+                    <td>шт.</td>
+                    <td>цена</td>
+                    <td>шт.</td>
+                    <td>цена</td>
+                    <td>шт.</td>
+                    <td>цена</td>
+                    <td>шт.</td>
+                    <td>цена</td>
+                    <td>шт.</td>
+                    <td>цена</td>
+                    <td>шт.</td>
+                    <td>цена</td>
+                    <td>шт.</td>
+                    <td>цена</td>
+                    <td>шт.</td>
+                    <td>цена</td>
+                    <td>шт.</td>
+                    <td>цена</td>
+                    <td>шт.</td>
+                    <td>цена</td>
+                    <td>шт.</td>
+                    <td>цена</td>
+                     <td>м2</td>
+                     <td>руб</td>
+                    <td>м2</td>
+                     <td>руб</td>
+
+                </tr>
+                {% for cod in code %}
+                <tr>
+                    <td>{{cod.board_26х600х3050}}</td>
+                    <td>{% if cod.board_26х600х3050 != 0 %} {{coast.price_26х600х3050}} {% endif %}</td>
+                    <td>{{cod.board_26х600х2440}}</td>
+                    <td>{% if cod.board_26х600х2440 != 0 %} {{coast.price_26х600х2440}} {% endif %}</td>
+                    <td>{{cod.board_26х600х2500}}</td>
+                    <td>{% if cod.board_26х600х2500 != 0 %} {{coast.price_26х600х2500}} {% endif %}</td>
+                    <td>{{cod.board_38х600х2440}}</td>
+                    <td>{% if cod.board_38х600х2440 != 0 %} {{coast.price_38х600х2440}} {% endif %}</td>
+                    <td>{{cod.board_38х600х3050}}</td>
+                    <td>{% if cod.board_38х600х3050 != 0 %} {{coast.price_38х600х3050}} {% endif %}</td>
+                    <td>{{cod.board_38х800х3050}}</td>
+                    <td>{% if cod.board_38х800х3050 != 0 %} {{coast.price_38х800х3050}} {% endif %}</td>
+                    <td>{{cod.board_38х900х3050}}</td>
+                    <td>{% if cod.board_38х900х3050 != 0 %} {{coast.price_38х900х3050}} {% endif %}</td>
+                    <td>{{cod.board_38х600х4200}}</td>
+                    <td>{% if cod.board_38х600х4200 != 0 %} {{coast.price_38х600х4200}} {% endif %}</td>
+                    <td>{{cod.board_4х600х3050}}</td>
+                    <td>{% if cod.board_4х600х3050 != 0 %} {{coast.price_4х600х3050}} {% endif %}</td>
+                    <td>{{cod.board_6х600х3050}}</td>
+                    <td>{% if cod.board_6х600х3050 != 0 %} {{coast.price_6х600х3050}} {% endif %}</td>
+                    <td>{{cod.board_6х600х2400}}</td>
+                    <td>{% if cod.board_6х600х2400 != 0 %} {{coast.price_6х600х2400}} {% endif %}</td>
+                    <td>{{ cod.sum_quntity | floatformat:3 }}</td>
+                    <td>{{ cod.sum_coast_board | floatformat:2 }}</td>
+                    <td>{{ cod.total_defect_plastic | floatformat:3 }}</td>
+                    <td>{{ cod.total_coast_defect_plastic | floatformat:2 }}</td>
+
+
+                {% endfor %}
+                </tr>
+
+
+                 </tbody>
+                <tfoot>
+                <tr>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                     <td></td>
+                     <td></td>
+                     <td></td>
+                     <td></td>
+                     <td></td>
+                     <td></td>
+                     <td></td>
+                     <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td></td>
+                    <td>{{ sum_quntity_agg | floatformat:3 }}</td>
+                    <td>{{ sum_coast_board_agg | floatformat:2 }}</td>
+                    <td>{{ sum_total_defect_plastic | floatformat:3 }}</td>
+                    <td>{{ sum_total_coast_defect_plastic | floatformat:2 }}</td>
+
+
+
+                </tr>
+                </tfoot>
+                </table>
+    </div>
+</div>
+<br>
+<input style="color:red" type="button" onclick="location.href='/delete_defect_plastic';" value="Удалить данные расчета" />
+
+
+</body>
+</html>

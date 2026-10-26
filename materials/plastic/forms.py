@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import inlineformset_factory
-from .models import Plastics, Stocks, Chipboard, Glue, Documents, NoteGlue
+from .models import Plastics, Stocks, Chipboard, Glue, Documents, NoteGlue, CostPrice
 from django.forms.models import ModelForm
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
@@ -137,4 +137,20 @@ class NoteGlueForm(forms.ModelForm):
 
 
 
-
+class CostPriceForm(forms.ModelForm):
+    class Meta:
+        model = CostPrice
+        fields = '__all__'
+        labels = {
+            'price_26х600х3050': 'Себестоимость 26х600х3050',
+            'price_26х600х2440': 'Себестоимость 26х600х2440',
+            'price_26х600х2500': 'Себестоимость 26х600х2500',
+            'price_38х600х2440': 'Себестоимость 38х600х2440',
+            'price_38х600х3050': 'Себестоимость 38х600х3050',
+            'price_38х800х3050': 'Себестоимость 38х800х3050',
+            'price_38х900х3050': 'Себестоимость 38х900х3050',
+            'price_38х600х4200': 'Себестоимость 38х600х4200',
+            'price_4х600х3050': 'Себестоимость 4х600х3050',
+            'price_6х600х3050': 'Себестоимость 6х600х3050',
+            'price_6х600х2400': 'Себестоимость 6х600х2400',
+            }

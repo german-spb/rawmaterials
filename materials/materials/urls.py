@@ -100,4 +100,12 @@ urlpatterns = [
     path('phone/phone_search/phone_edit/<int:id>/', views.phone_edit),
     path('phone/phone_search/', views.phone_search),
     path('phone_form/phone_search/', views.phone_search),
+
+    path('coastprice/', views.coastprice_entry),
+    path('coastprice/create_coastprice/', views.coastprice_create),
+    path('upload_defect_plastic/', views.upload_defect_plastic),
+    path('torg_2/', views.torg_2, name='torg_2'),
+    path('delete_defect_plastic', views.delete_defect_plastic, name='delete_defect_plastic'),
+
+    path('upload_shablon/', views.upload_shablon, name='upload_shablon'),
 ]

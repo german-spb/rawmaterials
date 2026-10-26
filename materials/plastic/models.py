@@ -99,3 +99,51 @@ class Phone(models.Model):
 
     class Meta:
         ordering = ['surname',]
+
+class CostPrice(models.Model):
+    price_26х600х3050 = models.DecimalField(max_digits=8, decimal_places=2, default=0)
+    price_26х600х2440 = models.DecimalField(max_digits=8, decimal_places=2, default=0)
+    price_26х600х2500 = models.DecimalField(max_digits=8, decimal_places=2, default=0)
+    price_38х600х2440 = models.DecimalField(max_digits=8, decimal_places=2, default=0)
+    price_38х600х3050 = models.DecimalField(max_digits=8, decimal_places=2, default=0)
+    price_38х800х3050 = models.DecimalField(max_digits=8, decimal_places=2, default=0)
+    price_38х900х3050 = models.DecimalField(max_digits=8, decimal_places=2, default=0)
+    price_38х600х4200 = models.DecimalField(max_digits=8, decimal_places=2, default=0)
+    price_4х600х3050 = models.DecimalField(max_digits=8, decimal_places=2, default=0)
+    price_6х600х3050 = models.DecimalField(max_digits=8, decimal_places=2, default=0)
+    price_6х600х2400 = models.DecimalField(max_digits=8, decimal_places=2, default=0)
+
+class DefectPlastic(models.Model):
+    plastic = models.ForeignKey(Plastics, on_delete=models.CASCADE, related_name='code_fabricator')
+    code_contractor = models.CharField(max_length=20, blank=True, default='')
+    current_price = models.DecimalField(max_digits=6, decimal_places=2, default=0)
+    defect_plastic = models.FloatField(default=0)
+    quantity_26х600х3050 = models.DecimalField(max_digits=6, decimal_places=2, default=0)
+    board_26х600х3050 = models.IntegerField(default=0)
+    quantity_26х600х2440 = models.DecimalField(max_digits=6, decimal_places=2, default=0)
+    board_26х600х2440 = models.IntegerField(default=0)
+    quantity_26х600х2500 = models.DecimalField(max_digits=6, decimal_places=2, default=0)
+    board_26х600х2500 = models.IntegerField(default=0)
+    quantity_38х600х2440 = models.DecimalField(max_digits=6, decimal_places=2, default=0)
+    board_38х600х2440 = models.IntegerField(default=0)
+    quantity_38х600х3050 = models.DecimalField(max_digits=6, decimal_places=2, default=0)
+    board_38х600х3050 = models.IntegerField(default=0)
+    quantity_38х800х3050 = models.DecimalField(max_digits=6, decimal_places=2, default=0)
+    board_38х800х3050 = models.IntegerField(default=0)
+    quantity_38х900х3050 = models.DecimalField(max_digits=6, decimal_places=2, default=0)
+    board_38х900х3050 = models.IntegerField(default=0)
+    quantity_38х600х4200 = models.DecimalField(max_digits=6, decimal_places=2, default=0)
+    board_38х600х4200 = models.IntegerField(default=0)
+    quantity_4х600х3050 = models.DecimalField(max_digits=6, decimal_places=2, default=0)
+    board_4х600х3050 = models.IntegerField(default=0)
+    quantity_6х600х3050 = models.DecimalField(max_digits=6, decimal_places=2, default=0)
+    board_6х600х3050 = models.IntegerField(default=0)
+    quantity_6х600х2400 = models.DecimalField(max_digits=6, decimal_places=2, default=0)
+    board_6х600х2400 = models.IntegerField(default=0)
+    coast_defect_plastic = models.DecimalField(max_digits=6, decimal_places=2, default=0)
+    sum_quntity = models.FloatField(default=0)
+    sum_coast_board = models.FloatField(default=0)
+    total_defect_plastic = models.FloatField(default=0)
+    total_coast_defect_plastic = models.FloatField(default=0)
+
+
